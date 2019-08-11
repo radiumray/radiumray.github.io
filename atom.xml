@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://leirobot.com/"/>
-  <updated>2019-08-11T13:54:39.186Z</updated>
+  <updated>2019-08-11T14:41:21.653Z</updated>
   <id>http://leirobot.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://leirobot.com/2019/08/11/sdc/"/>
     <id>http://leirobot.com/2019/08/11/sdc/</id>
     <published>2019-08-11T08:52:24.000Z</published>
-    <updated>2019-08-11T13:54:39.186Z</updated>
+    <updated>2019-08-11T14:41:21.653Z</updated>
     
-    <content type="html"><![CDATA[<p>这里有一部分自动驾驶的测试视频<br>包括，车架硬件测试，实际道路的模拟器（airsim，GTAV）和行车记录仪视频</p><a id="more"></a><p>ESP32的图传遥控车，用于自动驾驶，自动驾驶神经网络处理在另一台主机，图传给主机处理再发送指令给小车。</p><iframe height="498" width="510" src="http://player.youku.com/embed/XNDMwOTYyMjQ1Mg==" frameborder="0" 'allowfullscreen'></iframe><p>预研Opencv, tensorflow, keras开始尝试做基于视觉的自动驾驶</p><p>用一个端到端神经网络实现了一个自动驾驶小车(树莓派)：<br>Wifi图传，udp控制，本地存储标签数据，多线程，电机舵机驱动：</p><p>乐高车架测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMjQ0OA==" frameborder="0" allowfullscreen></iframe><p>飞思卡尔车架测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMTk2MA==" frameborder="0" allowfullscreen></iframe><p>一款车架测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYzNTk1Ng==" frameborder="0" allowfullscreen></iframe><p>侠盗车手测试:GTAV有个API插件，可以用python控制游戏里的车，这个视频在夜间自动驾驶，识别车道线通过车头中心点和车道线的垂直线和相交线来决策控制</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMjQyMA==" frameborder="0" allowfullscreen></iframe><p>airsim测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYxNjg4OA==" frameborder="0" allowfullscreen></iframe><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYxNTgwOA==" frameborder="0" allowfullscreen></iframe><p>行车记录仪测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMTk2NA==" frameborder="0" allowfullscreen></iframe><p>读电表</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMTk2OA==" frameborder="0" allowfullscreen></iframe>]]></content>
+    <content type="html"><![CDATA[<p>这里有一部分自动驾驶的测试视频<br>包括，车架硬件测试，实际道路的模拟器（airsim，GTAV）和行车记录仪视频</p><a id="more"></a><p>ESP32的图传遥控车，用于自动驾驶，自动驾驶神经网络处理在另一台主机，图传给主机处理再发送指令给小车。</p><h1><a href="https://v.youku.com/v_show/id_XNDMwOTYyMjQ1Mg==.html?spm=user.playlsit.page.17" target="_Blank">ESP32的图传遥控车=></a></h1><p>预研Opencv, tensorflow, keras开始尝试做基于视觉的自动驾驶</p><p>用一个端到端神经网络实现了一个自动驾驶小车(树莓派)：<br>Wifi图传，udp控制，本地存储标签数据，多线程，电机舵机驱动：</p><h1><a href="https://v.youku.com/v_show/id_XNDMwOTYyMjQ0OA==.html?spm=user.playlsit.page.15" target="_Blank">乐高车架测试</a></h1><h1><a href="https://v.youku.com/v_show/id_XNDMwOTYyMTk2MA==.html?spm=user.playlsit.page.13" target="_Blank">飞思卡尔车架测试</a></h1><h1><a href="https://v.youku.com/v_show/id_XNDMwOTYzNTk1Ng==.html?spm=user.playlsit.page.11" target="_Blank">一款车架测试</a></h1><p>侠盗车手测试:GTAV有个API插件，可以用python控制游戏里的车，这个视频在夜间自动驾驶，识别车道线通过车头中心点和车道线的垂直线和相交线来决策控制</p><h1><a href="https://v.youku.com/v_show/id_XNDMwOTYyMjQyMA==.html?spm=user.playlsit.page.9" target="_Blank">侠盗车手测试</a></h1><h1><a href="https://v.youku.com/v_show/id_XNDMwOTYxNTgwOA==.html?spm=user.playlsit.page.5" target="_Blank">airsim测试1</a></h1><h1><a href="https://v.youku.com/v_show/id_XNDMwOTYxNjg4OA==.html?spm=user.playlsit.page.7" target="_Blank">airsim测试2</a></h1><h1><a href="https://v.youku.com/v_show/id_XNDMwOTYyMTk2NA==.html?spm=user.playlsit.page.3" target="_Blank">行车记录仪测试</a></h1><h1><a href="https://v.youku.com/v_show/id_XNDMwOTYyMTk2OA==.html?spm=user.playlsit.page.1" target="_Blank">读电表</a></h1>]]></content>
     
     <summary type="html">
     

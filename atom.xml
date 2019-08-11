@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>雷</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://leirobot.com/"/>
+  <updated>2019-08-11T11:52:37.771Z</updated>
+  <id>http://leirobot.com/</id>
+  
+  <author>
+    <name>ray</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>自动驾驶</title>
+    <link href="http://leirobot.com/2019/08/11/sdc/"/>
+    <id>http://leirobot.com/2019/08/11/sdc/</id>
+    <published>2019-08-11T08:52:24.000Z</published>
+    <updated>2019-08-11T11:52:37.771Z</updated>
+    
+    <content type="html"><![CDATA[<p>这里有一部分自动驾驶的测试视频<br>包括，车架硬件测试，实际道路的模拟器（airsim，GTAV）和行车记录仪视频</p><a id="more"></a><p>ESP32的图传遥控车，用于自动驾驶，自动驾驶神经网络处理在另一台主机，图传给主机处理再发送指令给小车。</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMjQ1Mg==" frameborder="0" allowfullscreen></iframe><p>预研Opencv, tensorflow, keras开始尝试做基于视觉的自动驾驶</p><p>用一个端到端神经网络实现了一个自动驾驶小车(树莓派)：<br>Wifi图传，udp控制，本地存储标签数据，多线程，电机舵机驱动：</p><p>乐高车架测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMjQ0OA==" frameborder="0" allowfullscreen></iframe><p>飞思卡尔车架测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMTk2MA==" frameborder="0" allowfullscreen></iframe><p>一款车架测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYzNTk1Ng==" frameborder="0" allowfullscreen></iframe><p>侠盗车手测试:GTAV有个API插件，可以用python控制游戏里的车，这个视频在夜间自动驾驶，识别车道线通过车头中心点和车道线的垂直线和相交线来决策控制</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMjQyMA==" frameborder="0" allowfullscreen></iframe><p>airsim测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYxNjg4OA==" frameborder="0" allowfullscreen></iframe><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYxNTgwOA==" frameborder="0" allowfullscreen></iframe><p>行车记录仪测试</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMTk2NA==" frameborder="0" allowfullscreen></iframe><p>读电表</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNDMwOTYyMTk2OA==" frameborder="0" allowfullscreen></iframe>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这里有一部分自动驾驶的测试视频&lt;br&gt;包括，车架硬件测试，实际道路的模拟器（airsim，GTAV）和行车记录仪视频&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="自动驾驶" scheme="http://leirobot.com/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+      <category term="opencv" scheme="http://leirobot.com/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/opencv/"/>
+    
+    
+      <category term="sdc" scheme="http://leirobot.com/tags/sdc/"/>
+    
+      <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>那些年折腾过的东西</title>
+    <link href="http://leirobot.com/2019/08/11/struggle/"/>
+    <id>http://leirobot.com/2019/08/11/struggle/</id>
+    <published>2019-08-11T07:46:12.000Z</published>
+    <updated>2019-08-11T09:37:59.248Z</updated>
+    
+    <content type="html"><![CDATA[<p>2014那一年玩了许多电路板，写了许多课程</p><p>这里有一部分视频：</p><a id="more"></a><p>物联网远程控制加湿器</p><iframe height="100" width="200" src="http://player.youku.com/embed/XOTExMDA0OTcy" frameborder="0" allowfullscreen></iframe><p>蓝牙控制小车</p><iframe height="100" width="200" src="http://player.youku.com/embed/XMTQ0ODYwNDIwOA==" frameborder="0" allowfullscreen></iframe><p>wifi控制乐高车</p><iframe height="100" width="200" src="http://player.youku.com/embed/XOTAxMjEzMjc2" frameborder="0" allowfullscreen></iframe><p>光传输摩尔斯码</p><iframe height="100" width="200" src="http://player.youku.com/embed/XODU4Nzc0MDUy" frameborder="0" allowfullscreen></iframe><p>OLED动画</p><iframe height="100" width="200" src="http://player.youku.com/embed/XODE2NDk2MjEy" frameborder="0" allowfullscreen></iframe><p>触碰琴</p><iframe height="100" width="200" src="http://player.youku.com/embed/XODA4MTkwMDY4" frameborder="0" allowfullscreen></iframe><p>平衡车</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNzA2NzgxMjM2" frameborder="0" allowfullscreen></iframe><p>温湿度数码管</p><iframe height="100" width="200" src="http://player.youku.com/embed/XNjkyMzU1MTI0" frameborder="0" allowfullscreen></iframe><a href="https://i.youku.com/i/UMTI5NjUyODk2/videos?spm=a2hzp.8253869.0.0" target="_blank" rel="noopener">更多折腾的视频点击这里：</a><br><a href="https://wiki.microduino.cn/index.php/%E5%85%B6%E4%BB%96%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">wiki课程点击进入：</a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2014那一年玩了许多电路板，写了许多课程&lt;/p&gt;
+&lt;p&gt;这里有一部分视频：&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="嵌入式" scheme="http://leirobot.com/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+      <category term="embed" scheme="http://leirobot.com/tags/embed/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习</title>
+    <link href="http://leirobot.com/2019/08/11/derivative/"/>
+    <id>http://leirobot.com/2019/08/11/derivative/</id>
+    <published>2019-08-11T01:55:42.000Z</published>
+    <updated>2019-08-11T12:07:34.413Z</updated>
+    
+    <content type="html"><![CDATA[<p>函数求导，损失函数，梯度下降，数学公式推导，3d动画演示</p><a id="more"></a><a href="https://github.com/radiumray/ML" target="_blank" rel="noopener">点击进入：<img border="0" src></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;函数求导，损失函数，梯度下降，数学公式推导，3d动画演示&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://leirobot.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="人工智能" scheme="http://leirobot.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    
+      <category term="ml" scheme="http://leirobot.com/tags/ml/"/>
+    
+      <category term="ai" scheme="http://leirobot.com/tags/ai/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>电影</title>
+    <link href="http://leirobot.com/2019/08/04/hello-world/"/>
+    <id>http://leirobot.com/2019/08/04/hello-world/</id>
+    <published>2019-08-04T13:30:11.037Z</published>
+    <updated>2019-08-11T09:28:14.137Z</updated>
+    
+    <content type="html"><![CDATA[<p>豆瓣高分电影榜</p><a href="https://www.douban.com/doulist/240962/" target="_blank" rel="noopener">点击进入：</a><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;豆瓣高分电影榜&lt;/p&gt;
+&lt;a href=&quot;https://www.douban.com/doulist/240962/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+点击进入：
+&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="电影" scheme="http://leirobot.com/categories/%E7%94%B5%E5%BD%B1/"/>
+    
+    
+      <category term="movies" scheme="http://leirobot.com/tags/movies/"/>
+    
+  </entry>
+  
+</feed>

@@ -1177,10 +1177,6 @@ pre .javascript .function {
   word-wrap: break-word;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
 }
-.post-body .post-body a {
-  color: #428bca;
-  font-weight: bold;
-}
 .post-body span.exturl .fa {
   font-size: 0.875em;
   margin-left: 4px;
@@ -1660,7 +1656,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #4667ff;
+  background: #5e9452;
   border-radius: 50%;
   content: ' ';
   display: inline-block;

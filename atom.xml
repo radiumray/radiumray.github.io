@@ -168,6 +168,58 @@
   </entry>
   
   <entry>
+    <title>openpose</title>
+    <link href="http://leirobot.com/2019/08/11/openPose/"/>
+    <id>http://leirobot.com/2019/08/11/openPose/</id>
+    <published>2019-08-11T01:55:42.000Z</published>
+    <updated>2019-08-18T16:02:51.318Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://github.com/YangZeyu95/unofficial-implement-of-openpose" target="_blank" rel="noopener">https://github.com/YangZeyu95/unofficial-implement-of-openpose</a></p><p><a href="https://github.com/tensorlayer/openpose-plus" target="_blank" rel="noopener">https://github.com/tensorlayer/openpose-plus</a></p><p><a href="https://github.com/dlunion/EasyOpenPose" target="_blank" rel="noopener">https://github.com/dlunion/EasyOpenPose</a></p><p><a href="https://blog.techbridge.cc/2019/01/18/openpose-installation/" target="_blank" rel="noopener">https://blog.techbridge.cc/2019/01/18/openpose-installation/</a></p><p><a href="https://zhuanlan.zhihu.com/p/49302970" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/49302970</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://github.com/YangZeyu95/unofficial-implement-of-openpose&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/YangZeyu95/uno
+      
+    
+    </summary>
+    
+      <category term="openpose" scheme="http://leirobot.com/categories/openpose/"/>
+    
+    
+      <category term="poenpose" scheme="http://leirobot.com/tags/poenpose/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pyqt5</title>
+    <link href="http://leirobot.com/2019/08/11/pyqt5/"/>
+    <id>http://leirobot.com/2019/08/11/pyqt5/</id>
+    <published>2019-08-11T01:55:42.000Z</published>
+    <updated>2019-08-18T12:17:29.843Z</updated>
+    
+    <content type="html"><![CDATA[<p>ui转py：<br>pyuic5 mainwindow.ui -o MainWindow.py</p><p>打包发布：<br>你可以用许多工具把python代码转换成二进制可执行文件</p><p>对我而言，我将使用pyinstaller，因为它不但可以打包python代码成可执行文件，而且是跨平台的(Windows, Linux, Mac OS X, FreeBSD, and Solaris)支持23位，64位</p><p>pyinstaller完全支持pyqt5</p><p>安装pyinstaller:</p><p>$ pip3 install pyinstaller</p><p>安装完后，你可以转换python代码通过：</p><p>$ pyinstaller test.py</p><p>在你的python程序文件夹会生成一个dist文件夹</p><p>在里边有许多生成的文件，咱们把他们搞成一个文件呢？</p><p>你可以用下指令生成一个可执行文件：</p><p>$ pyinstaller –onefile test.py</p><p>每次执行都会有一个控制台窗口，怎末隐藏他呢<br>使用-w参数</p><p>$ pyinstaller -w test.py</p><p>这个仅适用于windows和mac</p><p>pyinstaller提供了许多选项打包app，使用-help查看<br>$ pyinstaller –help</p><p>pip安装报错？</p><p>下面就介绍用setup.py文件进行安装</p><p>1、先下载 pyinstaller的安装文件，下载地址：<a href="http://www.pyinstaller.org/downloads.html" target="_blank" rel="noopener">http://www.pyinstaller.org/downloads.html</a></p><p>2、我安装的是3.4版本，直接下载：pyinstaller 3.4</p><p>3、下载到本地后，直接解压，然后通过管理员模式打开命令窗口，用 cd 命令切换至 pyinstaller的解压路径，然后运行 python setup.py install</p><p>4、安装的过程会花点时间，就耐心等待吧，出现下面的提示表明安装成功<br>通过 pip show pyinstaller查看详细信息进一步确认安装情况</p><hr><p>PyQt5环境搭建及cx_freeze打包exe</p><p>pip install PyQt5<br>pip install cx_freeze</p><p>python setup.py build</p><p><a href="https://www.cnblogs.com/asis/p/pyqt5-cx_freeze.html" target="_blank" rel="noopener">https://www.cnblogs.com/asis/p/pyqt5-cx_freeze.html</a></p><p>没有 designer.exe怎么办：<br><a href="https://codeday.me/bug/20190527/1164947.html" target="_blank" rel="noopener">https://codeday.me/bug/20190527/1164947.html</a></p><p><a href="https://likegeeks.com/pyqt5-tutorial/" target="_blank" rel="noopener">https://likegeeks.com/pyqt5-tutorial/</a><br><a href="https://www.learnpyqt.com/" target="_blank" rel="noopener">https://www.learnpyqt.com/</a></p><p><a href="https://likegeeks.com/pyqt5-tutorial/" target="_blank" rel="noopener">https://likegeeks.com/pyqt5-tutorial/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ui转py：&lt;br&gt;pyuic5 mainwindow.ui -o MainWindow.py&lt;/p&gt;
+&lt;p&gt;打包发布：&lt;br&gt;你可以用许多工具把python代码转换成二进制可执行文件&lt;/p&gt;
+&lt;p&gt;对我而言，我将使用pyinstaller，因为它不但可以打包python代
+      
+    
+    </summary>
+    
+      <category term="pyqt5" scheme="http://leirobot.com/categories/pyqt5/"/>
+    
+    
+      <category term="pyqt5" scheme="http://leirobot.com/tags/pyqt5/"/>
+    
+  </entry>
+  
+  <entry>
     <title>电影</title>
     <link href="http://leirobot.com/2019/08/04/hello-world/"/>
     <id>http://leirobot.com/2019/08/04/hello-world/</id>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://leirobot.com/"/>
-  <updated>2019-08-12T05:17:29.168Z</updated>
+  <updated>2019-08-27T10:21:37.338Z</updated>
   <id>http://leirobot.com/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>模型转换说明</title>
+    <link href="http://leirobot.com/2019/08/27/modelTransfer/"/>
+    <id>http://leirobot.com/2019/08/27/modelTransfer/</id>
+    <published>2019-08-27T04:55:42.000Z</published>
+    <updated>2019-08-27T10:21:37.338Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="模型转换示意图"><a href="#模型转换示意图" class="headerlink" title="模型转换示意图"></a>模型转换示意图</h1><pre><code>ckpt  -&gt;  pb  &lt;-&gt;  tflite  -&gt;  kmodel ∧     / ∧ |    /   | ∨  ∨   ∨ graph   pbtxtckpt-&gt;|-&gt;pb-&gt;tflite-&gt;kmodelh5----/</code></pre><h2 id="文件后缀说明"><a href="#文件后缀说明" class="headerlink" title="文件后缀说明"></a>文件后缀说明</h2><ul><li>model.ckpt.meta保存计算图的结构，即神经网络的结构</li><li>checkpoint保存目录下所有的模型文件列表</li><li>ckpt保存程序中每个变量的取值</li><li>.data文件为模型中的训练变量</li></ul><h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><ul><li>ubuntu18.04LTS</li><li>python3.6.8</li><li>tensorflow-1.14.0</li><li>keras-2.2.5</li><li>Sipeed MAIX系列开发板</li></ul><h2 id="训练模型示例："><a href="#训练模型示例：" class="headerlink" title="训练模型示例："></a>训练模型示例：</h2><p><a href="https://github.com/sipeed/Maix-TF-workspace" target="_blank" rel="noopener">https://github.com/sipeed/Maix-TF-workspace</a></p><h2 id="下载安装工具："><a href="#下载安装工具：" class="headerlink" title="下载安装工具："></a>下载安装工具：</h2><p>Maix_Toolbox:收集了常用格式转换的脚本程序<br><a href="https://github.com/sipeed/Maix_Toolbox" target="_blank" rel="noopener">https://github.com/sipeed/Maix_Toolbox</a><br>下载nncase工具箱:<br>TFlite模型转换为K210的模型格式，需要借助嘉楠的nncase工具箱。<br>若网络情况好……运行Maix_Toolbox中的get_nncase.sh 脚本，自动从github下载nncase的linux的编译好的二进制文件<br>若网络情况不好……<br>将get_nncase.sh 脚本内的wget <a href="https://github.com/kendryte/nncase/releases/download/v0.1.0-rc5/ncc-linux-x86_64.tar.xz" target="_blank" rel="noopener">https://github.com/kendryte/nncase/releases/download/v0.1.0-rc5/ncc-linux-x86_64.tar.xz</a><br>修改为wget <a href="https://gitee.com/cnbright/nncase/attach_files/267069/download" target="_blank" rel="noopener">https://gitee.com/cnbright/nncase/attach_files/267069/download</a><br>换到码云的下载地址<br>也可以直接在这个地址下载，再在Maix_Toolbox内新建文件夹ncc，并解压到此处</p><h2 id="tensorflow模型间转换，生成pb文件"><a href="#tensorflow模型间转换，生成pb文件" class="headerlink" title="tensorflow模型间转换，生成pb文件"></a>tensorflow模型间转换，生成pb文件</h2><p>ckpt-&gt;pb: ckpt2pb.py (.ckpt模型文件转变换.pb模型文件)<br>h5-pb: keras_to_tensorflow.py (.h5模型文件转变换.pb模型文件)</p><h2 id="使用tensorboard显示pb模型图结构"><a href="#使用tensorboard显示pb模型图结构" class="headerlink" title="使用tensorboard显示pb模型图结构"></a>使用tensorboard显示pb模型图结构</h2><p>把pb文件放到workspace文件夹下<br>gen_pb_graph.py<br>    python gen_pb_graph.py workspace/mnist.pb<br>测试通过给出的地址可以在网页上看到模型结构<br>可以看到输入节点名为“inputs”，输出节点名为“output”</p><h2 id="pb转换tflite"><a href="#pb转换tflite" class="headerlink" title="pb转换tflite"></a>pb转换tflite</h2><p>pb-&gt;tflite: pb2tflite.sh</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">bash pb2tflite.sh workspace/mnist.pb</span><br><span class="line">执行后会询问以下信息：</span><br><span class="line">1. pb file name:(<span class="keyword">do</span> not include workspace) (pb模型名字)</span><br><span class="line">mnist.pb</span><br><span class="line">2. input_arrays name:(输入节点名字)</span><br><span class="line">inputs</span><br><span class="line">3. output_arrays name:(输出节点名字)</span><br><span class="line">output</span><br><span class="line">4. input width:(输入图像宽度)</span><br><span class="line">28</span><br><span class="line">5. input height:(输入图像高度)</span><br><span class="line">28</span><br><span class="line">6. input channel:(图像通道)</span><br><span class="line">1</span><br></pre></td></tr></table></figure><p>之后会生成.tflite<br>TFlite模型在转换为K210模型的时候，会对原来的网络结构进行量化quantization, 量化会将原来网络中的浮点运算转化为8比特整数运算，起到压缩模型尺寸与加速的目的。线性激活函数, relu激活函数, relu6激活函数等均可以转换为等价的量化运算。</p><h2 id="tflite转换kmodel"><a href="#tflite转换kmodel" class="headerlink" title="tflite转换kmodel"></a>tflite转换kmodel</h2><p>tflite-&gt;kmodel: tflite2kmodel.sh</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash tflite2kmodel.sh workspace/mnist.tflite</span><br></pre></td></tr></table></figure><p>这时在workspace下生成了mnist.kmodel</p><h2 id="kflash烧录kmodel到k210"><a href="#kflash烧录kmodel到k210" class="headerlink" title="kflash烧录kmodel到k210"></a>kflash烧录kmodel到k210</h2><p>用kflash烧录.kmodel文件,地址填写: (比如0x300000)</p><p>之后此地址就是micropython调用用到的地址</p><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">task = kpu.load(<span class="number">0x300000</span>)</span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://bbs.sipeed.com/t/topic/569" target="_blank" rel="noopener">https://bbs.sipeed.com/t/topic/569</a></p><p><a href="https://blog.csdn.net/dby_bright/article/details/99779311" target="_blank" rel="noopener">https://blog.csdn.net/dby_bright/article/details/99779311</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;模型转换示意图&quot;&gt;&lt;a href=&quot;#模型转换示意图&quot; class=&quot;headerlink&quot; title=&quot;模型转换示意图&quot;&gt;&lt;/a&gt;模型转换示意图&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;ckpt  -&amp;gt;  pb  &amp;lt;-&amp;gt;  tflite  -&amp;gt; 
+      
+    
+    </summary>
+    
+      <category term="模型转换" scheme="http://leirobot.com/categories/%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    
+    
+      <category term="model" scheme="http://leirobot.com/tags/model/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>转换tflite</title>
+    <link href="http://leirobot.com/2019/08/22/tfliteConvert/"/>
+    <id>http://leirobot.com/2019/08/22/tfliteConvert/</id>
+    <published>2019-08-22T05:18:24.000Z</published>
+    <updated>2019-08-22T07:20:17.659Z</updated>
+    
+    <content type="html"><![CDATA[<p>step 1</p><p>安装bazel编译工具，bazel官方安装教程 ，推荐第二种Using Bazel custom APT repository安装模式（三步）</p><p>step 2</p><p>下载tensorflow源码，笔者没尝试在安装版的tf里做编译，用源码不影响平台运转，放心操作。源码地址：tensorflow/tensorflow，配置过tf源码的盆友都知道，接下来配置洪水般倾泻询问的让你进退维谷，推倒重来是常态。记住一条：关于cuDNN配置的全yes，cudn的部分通过，其他的根据需求拟定。</p><p>step 3</p><p>接下来进入编译bazel 对源码的编译，如果只编译支持cpu的，输入如下代码，参考自：<a href="https://www.cnblogs.com/shouhuxianjian/p/9416934.html" target="_blank" rel="noopener">https://www.cnblogs.com/shouhuxianjian/p/9416934.html</a></p><pre><code>$ bazel build --config=opt //tensorflow/tools/pip_package:build_pip_package</code></pre><p>如果需要gpu支持的，敲如下代码：</p><pre><code>$ bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package </code></pre><p> 笔者言：此步骤适宜午休前操作，这样你可以感受不到它的漫长。</p><p>step 4</p><p>好开心，午休归来阿哩哩！编译successful！恭喜，环境基本搭建完成！如果没有安装版tf的可以参考余下的步骤完成。</p><p>$bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</p><p>$ sudo pip install /tmp/tensorflow_pkg/tensorflow</p><p>好了，下面进入崭新阶段，依以下的步骤编译模型转换工具包（前方有坑预警）~</p><p>$ bazel build tensorflow/python/tools:freeze_graph（作模型固化的工具）</p><p>$ bazel build tensorflow/lite/toto:toto（其他经验分享，这部分路径有误，笔者已更正）</p><p>$ bazel build tensorflow/tools/graph_transforms:summarize_graph（查看模型结构的工具）</p><p>齐活！下面就可以按照通用方式进行tflite模型转换了，但是我们通常在模型训练完成后只有.ckpt文件，可以将.ckpt文件直接固化成pb文件，这里参考了tensorflow实现将ckpt转pb文件 </p><p> 这样生成的固化pb文件，可以直接进入toco命令转换了！ 在toco命令中，需要有网络的输入，输出，shape等参数，可以通过这个命令（模型路径替换成自己的）：</p><p>$ bazel-bin/tensorflow/tools/graph_transforms/summarize_graph –in_graph=../freeze_graph.pb 参考： Tensorflow 模型转 tflite ，在安卓端使用</p><p> 通过网络结构就可找到对应输入/出参量了，进入toco模型转换，以mobilenet为例，命令如下形式（第一行的路径笔者有修正）：</p><p>$ bazel-bin/tensorflow/lite/toco/toco –input_file=frozen_model.pb \</p><p>–output_file=model.tflite \ –input_format=TENSORFLOW_GRAPHDEF \</p><p>–output_format=TFLITE \ –inference_type=FlOAT \</p><p>–input_shapes=”1,224,224,3” \ –input_array=input \</p><p>–output_array=MobilenetV1/Predictions/Reshape_1 \</p><p>操作无误后，就可以喜提tflite模型了！如果有对android部署熟知或有兴趣的呼友，也可以交流一下！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;step 1&lt;/p&gt;
+&lt;p&gt;安装bazel编译工具，bazel官方安装教程 ，推荐第二种Using Bazel custom APT repository安装模式（三步）&lt;/p&gt;
+&lt;p&gt;step 2&lt;/p&gt;
+&lt;p&gt;下载tensorflow源码，笔者没尝试在安装版的tf里做编
+      
+    
+    </summary>
+    
+      <category term="opencv" scheme="http://leirobot.com/categories/opencv/"/>
+    
+    
+      <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
+    
+  </entry>
   
   <entry>
     <title>pyTorch</title>
@@ -39,6 +92,31 @@
     
     
       <category term="dl" scheme="http://leirobot.com/tags/dl/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu安装opencv</title>
+    <link href="http://leirobot.com/2019/08/11/ubuntuOpencv/"/>
+    <id>http://leirobot.com/2019/08/11/ubuntuOpencv/</id>
+    <published>2019-08-11T08:52:24.000Z</published>
+    <updated>2019-08-19T10:39:47.015Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下载opencv"><a href="#下载opencv" class="headerlink" title="下载opencv"></a>下载opencv</h2><p>git clone <a href="https://github.com/opencv/opencv.git" target="_blank" rel="noopener">https://github.com/opencv/opencv.git</a><br>git clone <a href="https://github.com/opencv/opencv_contrib.git" target="_blank" rel="noopener">https://github.com/opencv/opencv_contrib.git</a></p><p><a href="https://www.w3cschool.cn/opencv/opencv-sjw628u6.html" target="_blank" rel="noopener">https://www.w3cschool.cn/opencv/opencv-sjw628u6.html</a></p><p><a href="http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/" target="_blank" rel="noopener">http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;下载opencv&quot;&gt;&lt;a href=&quot;#下载opencv&quot; class=&quot;headerlink&quot; title=&quot;下载opencv&quot;&gt;&lt;/a&gt;下载opencv&lt;/h2&gt;&lt;p&gt;git clone &lt;a href=&quot;https://github.com/opencv/o
+      
+    
+    </summary>
+    
+      <category term="opencv" scheme="http://leirobot.com/categories/opencv/"/>
+    
+    
+      <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
     
   </entry>
   
@@ -88,31 +166,6 @@
     
     
       <category term="sdc" scheme="http://leirobot.com/tags/sdc/"/>
-    
-      <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntu安装opencv</title>
-    <link href="http://leirobot.com/2019/08/11/ubuntuOpencv/"/>
-    <id>http://leirobot.com/2019/08/11/ubuntuOpencv/</id>
-    <published>2019-08-11T08:52:24.000Z</published>
-    <updated>2019-08-15T02:52:55.967Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="下载opencv"><a href="#下载opencv" class="headerlink" title="下载opencv"></a>下载opencv</h2><p>git clone <a href="https://github.com/opencv/opencv.git" target="_blank" rel="noopener">https://github.com/opencv/opencv.git</a><br>git clone <a href="https://github.com/opencv/opencv_contrib.git" target="_blank" rel="noopener">https://github.com/opencv/opencv_contrib.git</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;下载opencv&quot;&gt;&lt;a href=&quot;#下载opencv&quot; class=&quot;headerlink&quot; title=&quot;下载opencv&quot;&gt;&lt;/a&gt;下载opencv&lt;/h2&gt;&lt;p&gt;git clone &lt;a href=&quot;https://github.com/opencv/o
-      
-    
-    </summary>
-    
-      <category term="opencv" scheme="http://leirobot.com/categories/opencv/"/>
-    
     
       <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
     

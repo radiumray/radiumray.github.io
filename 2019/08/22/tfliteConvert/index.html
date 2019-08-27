@@ -57,16 +57,20 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://leirobot.com/tags/index.html">
+  <meta name="description" content="step 1 安装bazel编译工具，bazel官方安装教程 ，推荐第二种Using Bazel custom APT repository安装模式（三步） step 2 下载tensorflow源码，笔者没尝试在安装版的tf里做编译，用源码不影响平台运转，放心操作。源码地址：tensorflow/tensorflow，配置过tf源码的盆友都知道，接下来配置洪水般倾泻询问的让你进退维谷，推倒重来是">
+<meta name="keywords" content="opencv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转换tflite">
+<meta property="og:url" content="http://leirobot.com/2019/08/22/tfliteConvert/index.html">
 <meta property="og:site_name" content="雷">
+<meta property="og:description" content="step 1 安装bazel编译工具，bazel官方安装教程 ，推荐第二种Using Bazel custom APT repository安装模式（三步） step 2 下载tensorflow源码，笔者没尝试在安装版的tf里做编译，用源码不影响平台运转，放心操作。源码地址：tensorflow/tensorflow，配置过tf源码的盆友都知道，接下来配置洪水般倾泻询问的让你进退维谷，推倒重来是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-11T05:24:26.149Z">
+<meta property="og:updated_time" content="2019-08-22T07:20:17.659Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="转换tflite">
+<meta name="twitter:description" content="step 1 安装bazel编译工具，bazel官方安装教程 ，推荐第二种Using Bazel custom APT repository安装模式（三步） step 2 下载tensorflow源码，笔者没尝试在安装版的tf里做编译，用源码不影响平台运转，放心操作。源码地址：tensorflow/tensorflow，配置过tf源码的盆友都知道，接下来配置洪水般倾泻询问的让你进退维谷，推倒重来是">
   <link rel="alternate" href="/atom.xml" title="雷" type="application/atom+xml">
-  <link rel="canonical" href="http://leirobot.com/tags/">
+  <link rel="canonical" href="http://leirobot.com/2019/08/22/tfliteConvert/">
 
 
 <script id="page-configurations">
@@ -74,13 +78,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
-    isPage: true,
+    isPost: true,
+    isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>tags | 雷</title>
+  <title>转换tflite | 雷</title>
   
 
 
@@ -228,123 +232,156 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content page-post-detail">
             
 
   <div id="posts" class="posts-expand">
     
-    
-    
-    <div class="post-block page">
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leirobot.com/2019/08/22/tfliteConvert/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ray">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leon.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷">
+    </span>
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">tags
-
-</h1>
-
-<div class="post-meta">
-  
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-              
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
+          <h1 class="post-title" itemprop="name headline">转换tflite
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
               
                 
-                  
+              
+
+              <time title="创建时间：2019-08-22 13:18:24 / 修改时间：15:20:17" itemprop="dateCreated datePublished" datetime="2019-08-22T13:18:24+08:00">2019-08-22</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/opencv/" itemprop="url" rel="index"><span itemprop="name">opencv</span></a></span>
+
+                
                 
               
-                
-                  
-                
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>step 1</p>
+<p>安装bazel编译工具，bazel官方安装教程 ，推荐第二种Using Bazel custom APT repository安装模式（三步）</p>
+<p>step 2</p>
+<p>下载tensorflow源码，笔者没尝试在安装版的tf里做编译，用源码不影响平台运转，放心操作。源码地址：tensorflow/tensorflow，配置过tf源码的盆友都知道，接下来配置洪水般倾泻询问的让你进退维谷，推倒重来是常态。记住一条：关于cuDNN配置的全yes，cudn的部分通过，其他的根据需求拟定。</p>
+<p>step 3</p>
+<p>接下来进入编译bazel 对源码的编译，如果只编译支持cpu的，输入如下代码，参考自：<a href="https://www.cnblogs.com/shouhuxianjian/p/9416934.html" target="_blank" rel="noopener">https://www.cnblogs.com/shouhuxianjian/p/9416934.html</a></p>
+<pre><code>$ bazel build --config=opt //tensorflow/tools/pip_package:build_pip_package</code></pre><p>如果需要gpu支持的，敲如下代码：</p>
+<pre><code>$ bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package </code></pre><p> 笔者言：此步骤适宜午休前操作，这样你可以感受不到它的漫长。</p>
+<p>step 4</p>
+<p>好开心，午休归来阿哩哩！编译successful！恭喜，环境基本搭建完成！如果没有安装版tf的可以参考余下的步骤完成。</p>
+<p>$bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</p>
+<p>$ sudo pip install /tmp/tensorflow_pkg/tensorflow</p>
+<p>好了，下面进入崭新阶段，依以下的步骤编译模型转换工具包（前方有坑预警）~</p>
+<p>$ bazel build tensorflow/python/tools:freeze_graph（作模型固化的工具）</p>
+<p>$ bazel build tensorflow/lite/toto:toto（其他经验分享，这部分路径有误，笔者已更正）</p>
+<p>$ bazel build tensorflow/tools/graph_transforms:summarize_graph（查看模型结构的工具）</p>
+<p>齐活！下面就可以按照通用方式进行tflite模型转换了，但是我们通常在模型训练完成后只有.ckpt文件，可以将.ckpt文件直接固化成pb文件，这里参考了tensorflow实现将ckpt转pb文件 </p>
+<p> 这样生成的固化pb文件，可以直接进入toco命令转换了！ 在toco命令中，需要有网络的输入，输出，shape等参数，可以通过这个命令（模型路径替换成自己的）：</p>
+<p>$ bazel-bin/tensorflow/tools/graph_transforms/summarize_graph –in_graph=../freeze_graph.pb 参考： Tensorflow 模型转 tflite ，在安卓端使用</p>
+<p> 通过网络结构就可找到对应输入/出参量了，进入toco模型转换，以mobilenet为例，命令如下形式（第一行的路径笔者有修正）：</p>
+<p>$ bazel-bin/tensorflow/lite/toco/toco –input_file=frozen_model.pb \</p>
+<p>–output_file=model.tflite \ –input_format=TENSORFLOW_GRAPHDEF \</p>
+<p>–output_format=TFLITE \ –inference_type=FlOAT \</p>
+<p>–input_shapes=”1,224,224,3” \ –input_array=input \</p>
+<p>–output_array=MobilenetV1/Predictions/Reshape_1 \</p>
+<p>操作无误后，就可以喜提tflite模型了！如果有对android部署熟知或有兴趣的呼友，也可以交流一下！</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/opencv/" rel="tag"># opencv</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
               
-                
-                  
-                
+                <a href="/2019/08/12/pyTorch/" rel="next" title="pyTorch">
+                  <i class="fa fa-chevron-left"></i> pyTorch
+                </a>
               
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-              目前共计 11 个标签
             </div>
-            <div class="tag-cloud-tags">
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
               
-                <a href="/tags/ai/" style="font-size: 12px; color: #ccc">ai</a> <a href="/tags/dl/" style="font-size: 12px; color: #ccc">dl</a> <a href="/tags/embed/" style="font-size: 12px; color: #ccc">embed</a> <a href="/tags/ml/" style="font-size: 12px; color: #ccc">ml</a> <a href="/tags/model/" style="font-size: 12px; color: #ccc">model</a> <a href="/tags/movies/" style="font-size: 12px; color: #ccc">movies</a> <a href="/tags/opencv/" style="font-size: 30px; color: #111">opencv</a> <a href="/tags/poenpose/" style="font-size: 12px; color: #ccc">poenpose</a> <a href="/tags/pyqt5/" style="font-size: 12px; color: #ccc">pyqt5</a> <a href="/tags/python/" style="font-size: 12px; color: #ccc">python</a> <a href="/tags/sdc/" style="font-size: 12px; color: #ccc">sdc</a>
+                <a href="/2019/08/27/modelTransfer/" rel="prev" title="模型转换说明">
+                  模型转换说明 <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
         
-      </div>
-      
-      
-      
-    </div>
+      </footer>
     
+  </div>
+  
+  
+  
+  </article>
 
-    
-    
-    
   </div>
 
 
@@ -572,10 +609,9 @@
 
 
   
-    <script src="/js/scrollspy.js?v=7.3.0"></script>
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
 <script src="/js/post-details.js?v=7.3.0"></script>
 
-  
 
 </body>
 </html>

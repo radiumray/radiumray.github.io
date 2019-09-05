@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/zl.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/zl.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行代码下载地址：https://codeload.github.com/AIWintermuteAI/transfer_learning_sipeed/zip/master 测试代码：(用来下载mobileNet模型并测试,检查本地环境)1234567891011121314151617181920212">
+<meta name="keywords" content="k210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mobileNet迁移学习训练猫狗分类生成kmodel模型,k210运行">
+<meta property="og:url" content="http://leirobot.com/2019/09/05/transfer_learning_sipeed/index.html">
+<meta property="og:site_name" content="雷">
+<meta property="og:description" content="通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行代码下载地址：https://codeload.github.com/AIWintermuteAI/transfer_learning_sipeed/zip/master 测试代码：(用来下载mobileNet模型并测试,检查本地环境)1234567891011121314151617181920212">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-05T08:25:49.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mobileNet迁移学习训练猫狗分类生成kmodel模型,k210运行">
+<meta name="twitter:description" content="通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行代码下载地址：https://codeload.github.com/AIWintermuteAI/transfer_learning_sipeed/zip/master 测试代码：(用来下载mobileNet模型并测试,检查本地环境)1234567891011121314151617181920212">
+  <link rel="alternate" href="/atom.xml" title="雷" type="application/atom+xml">
+  <link rel="canonical" href="http://leirobot.com/2019/09/05/transfer_learning_sipeed/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>mobileNet迁移学习训练猫狗分类生成kmodel模型,k210运行 | 雷</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-right">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-sitemap">
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leirobot.com/2019/09/05/transfer_learning_sipeed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ray">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leon.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">mobileNet迁移学习训练猫狗分类生成kmodel模型,k210运行
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-05 16:22:42 / 修改时间：16:25:49" itemprop="dateCreated datePublished" datetime="2019-09-05T16:22:42+08:00">2019-09-05</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/k210/" itemprop="url" rel="index"><span itemprop="name">k210</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行"><a href="#通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行" class="headerlink" title="通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行"></a>通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行</h1><h2 id="代码下载地址："><a href="#代码下载地址：" class="headerlink" title="代码下载地址："></a>代码下载地址：</h2><p><a href="https://codeload.github.com/AIWintermuteAI/transfer_learning_sipeed/zip/master" target="_blank" rel="noopener">https://codeload.github.com/AIWintermuteAI/transfer_learning_sipeed/zip/master</a></p>
+<h2 id="测试代码：-用来下载mobileNet模型并测试-检查本地环境"><a href="#测试代码：-用来下载mobileNet模型并测试-检查本地环境" class="headerlink" title="测试代码：(用来下载mobileNet模型并测试,检查本地环境)"></a>测试代码：(用来下载mobileNet模型并测试,检查本地环境)</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> keras</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing <span class="keyword">import</span> image</span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Model</span><br><span class="line"><span class="keyword">from</span> keras.applications <span class="keyword">import</span> imagenet_utils</span><br><span class="line"><span class="keyword">from</span> keras.applications <span class="keyword">import</span> MobileNet</span><br><span class="line"><span class="keyword">from</span> keras.applications.mobilenet <span class="keyword">import</span> preprocess_input</span><br><span class="line"></span><br><span class="line">mobile = keras.applications.mobilenet.MobileNet()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_image</span><span class="params">(file)</span>:</span></span><br><span class="line">    img_path = <span class="string">''</span></span><br><span class="line">    img = image.load_img(img_path + file, target_size=(<span class="number">224</span>, <span class="number">224</span>))</span><br><span class="line">    img_array = image.img_to_array(img)</span><br><span class="line">    image.save_img(img_path + file, img_array)</span><br><span class="line">    img_array_expanded_dims = np.expand_dims(img_array, axis=<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)</span><br><span class="line"></span><br><span class="line">preprocessed_image = prepare_image(<span class="string">'German_Shepherd.jpg'</span>)</span><br><span class="line">predictions = mobile.predict(preprocessed_image)</span><br><span class="line">results = imagenet_utils.decode_predictions(predictions)</span><br><span class="line">print(results)</span><br><span class="line"></span><br><span class="line">preprocessed_image = prepare_image(<span class="string">'24.jpg'</span>)</span><br><span class="line">predictions = mobile.predict(preprocessed_image)</span><br><span class="line">results = imagenet_utils.decode_predictions(predictions)</span><br><span class="line">print(results)</span><br><span class="line"></span><br><span class="line">preprocessed_image = prepare_image(<span class="string">'48.jpg'</span>)</span><br><span class="line">predictions = mobile.predict(preprocessed_image)</span><br><span class="line">results = imagenet_utils.decode_predictions(predictions)</span><br><span class="line">print(results)</span><br></pre></td></tr></table></figure>
+
+<h2 id="训练代码：-images文件中放入要训练分类图片-比如新建cat-dog文件夹并放入相关图片用于训练"><a href="#训练代码：-images文件中放入要训练分类图片-比如新建cat-dog文件夹并放入相关图片用于训练" class="headerlink" title="训练代码：(images文件中放入要训练分类图片,比如新建cat,dog文件夹并放入相关图片用于训练)"></a>训练代码：(images文件中放入要训练分类图片,比如新建cat,dog文件夹并放入相关图片用于训练)</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> keras</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K</span><br><span class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> Adam</span><br><span class="line"><span class="keyword">from</span> keras.metrics <span class="keyword">import</span> categorical_crossentropy</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.image <span class="keyword">import</span> ImageDataGenerator</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing <span class="keyword">import</span> image</span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Model</span><br><span class="line"><span class="keyword">from</span> keras.applications <span class="keyword">import</span> imagenet_utils</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense, GlobalAveragePooling2D, Dropout</span><br><span class="line"><span class="keyword">from</span> mobilenet_sipeed.mobilenet <span class="keyword">import</span> MobileNet</span><br><span class="line"><span class="keyword">from</span> keras.applications.mobilenet <span class="keyword">import</span> preprocess_input</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_image</span><span class="params">(file)</span>:</span></span><br><span class="line">    img_path = <span class="string">''</span></span><br><span class="line">    img = image.load_img(img_path + file, target_size=(<span class="number">128</span>, <span class="number">128</span>))</span><br><span class="line">    img_array = image.img_to_array(img)</span><br><span class="line">    img_array_expanded_dims = np.expand_dims(img_array, axis=<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">base_model=MobileNet(input_shape=(<span class="number">128</span>, <span class="number">128</span>, <span class="number">3</span>), alpha = <span class="number">0.75</span>,depth_multiplier = <span class="number">1</span>, dropout = <span class="number">0.001</span>,include_top = <span class="literal">False</span>, weights = <span class="string">"imagenet"</span>, classes = <span class="number">1000</span>, backend=keras.backend, layers=keras.layers,models=keras.models,utils=keras.utils)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x=base_model.output</span><br><span class="line">x=GlobalAveragePooling2D()(x)</span><br><span class="line">x=Dense(<span class="number">100</span>,activation=<span class="string">'relu'</span>)(x) <span class="comment">#we add dense layers so that the model can learn more complex functions and classify for better results.</span></span><br><span class="line">x=Dropout(<span class="number">0.5</span>)(x)</span><br><span class="line">x=Dense(<span class="number">50</span>,activation=<span class="string">'relu'</span>)(x) <span class="comment">#dense layer 3</span></span><br><span class="line">preds=Dense(<span class="number">2</span>,activation=<span class="string">'softmax'</span>)(x) <span class="comment">#final layer with softmax activation</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model=Model(inputs=base_model.input,outputs=preds)</span><br><span class="line"><span class="comment">#specify the inputs</span></span><br><span class="line"><span class="comment">#specify the outputs</span></span><br><span class="line"><span class="comment">#now a model has been created based on our architecture</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i,layer <span class="keyword">in</span> enumerate(model.layers):</span><br><span class="line">    print(i,layer.name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># or if we want to set the first 20 layers of the network to be non-trainable</span></span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> model.layers[:<span class="number">86</span>]:</span><br><span class="line">    layer.trainable=<span class="literal">False</span></span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> model.layers[<span class="number">86</span>:]:</span><br><span class="line">    layer.trainable=<span class="literal">True</span></span><br><span class="line"></span><br><span class="line">train_datagen=ImageDataGenerator(preprocessing_function=preprocess_input) <span class="comment">#included in our dependencies</span></span><br><span class="line"></span><br><span class="line">train_generator=train_datagen.flow_from_directory(<span class="string">'images'</span>,</span><br><span class="line">                                                 target_size=(<span class="number">128</span>,<span class="number">128</span>),</span><br><span class="line">                                                 color_mode=<span class="string">'rgb'</span>,</span><br><span class="line">                                                 batch_size=<span class="number">32</span>,</span><br><span class="line">                                                 class_mode=<span class="string">'categorical'</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line">model.summary()</span><br><span class="line">model.compile(optimizer=<span class="string">'Adam'</span>,loss=<span class="string">'categorical_crossentropy'</span>,metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"><span class="comment"># Adam optimizer, loss function will be categorical cross entropy, evaluation metric will be accuracy</span></span><br><span class="line"></span><br><span class="line">step_size_train=train_generator.n//train_generator.batch_size</span><br><span class="line">model.fit_generator(generator=train_generator,steps_per_epoch=step_size_train,epochs=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">model.save(<span class="string">'my_model.h5'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试代码：-测试生成的模型效果"><a href="#测试代码：-测试生成的模型效果" class="headerlink" title="测试代码：(测试生成的模型效果)"></a>测试代码：(测试生成的模型效果)</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> keras</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing <span class="keyword">import</span> image</span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Model</span><br><span class="line"><span class="keyword">from</span> keras.applications <span class="keyword">import</span> imagenet_utils</span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> load_model</span><br><span class="line"></span><br><span class="line">model=load_model(<span class="string">'my_model.h5'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_image</span><span class="params">(file)</span>:</span></span><br><span class="line">    img_path = <span class="string">''</span></span><br><span class="line">    img = image.load_img(img_path + file, target_size=(<span class="number">128</span>, <span class="number">128</span>))</span><br><span class="line">    img_array = image.img_to_array(img)</span><br><span class="line">    image.save_img(img_path + file, img_array)</span><br><span class="line">    img_array_expanded_dims = np.expand_dims(img_array, axis=<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)</span><br><span class="line"></span><br><span class="line">preprocessed_image = prepare_image(<span class="string">'cat.1.jpg'</span>)</span><br><span class="line">predictions_cat = model.predict(preprocessed_image)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'cat'</span>, predictions_cat)</span><br><span class="line"></span><br><span class="line">preprocessed_image = prepare_image(<span class="string">'dog.1.jpg'</span>)</span><br><span class="line">predictions_dag = model.predict(preprocessed_image)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'dog'</span>, predictions_dag)</span><br></pre></td></tr></table></figure>
+
+<h2 id="h5转tflite"><a href="#h5转tflite" class="headerlink" title="h5转tflite"></a>h5转tflite</h2><p>tflite_convert –output_file=my_model.tflite –keras_file=my_model.h5</p>
+<p>放一些测试图片放到images文件夹里<br>tflite转kmodel<br>bash tflite2kmodel.sh workspace/my_model.tflite</p>
+<p>生成my_model.kmodel</p>
+<h2 id="用kflash烧录到一个地址，比如-0x200000"><a href="#用kflash烧录到一个地址，比如-0x200000" class="headerlink" title="用kflash烧录到一个地址，比如:0x200000"></a>用kflash烧录到一个地址，比如:0x200000</h2><p>制作一个lables.txt标签文件放到SD卡中：<br>格式为：</p>
+<p>cat<br>dog</p>
+<h2 id="micropython代码如下："><a href="#micropython代码如下：" class="headerlink" title="micropython代码如下："></a>micropython代码如下：</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> sensor, image, lcd, time</span><br><span class="line"><span class="keyword">import</span> KPU <span class="keyword">as</span> kpu</span><br><span class="line">lcd.init()</span><br><span class="line">sensor.reset()</span><br><span class="line">sensor.set_pixformat(sensor.RGB565)</span><br><span class="line">sensor.set_framesize(sensor.QVGA)</span><br><span class="line">sensor.set_windowing((<span class="number">128</span>, <span class="number">128</span>))</span><br><span class="line"><span class="comment">#sensor.set_windowing((224, 224))</span></span><br><span class="line">sensor.set_vflip(<span class="number">1</span>)</span><br><span class="line">sensor.run(<span class="number">1</span>)</span><br><span class="line">lcd.clear()</span><br><span class="line">lcd.draw_string(<span class="number">100</span>,<span class="number">96</span>,<span class="string">"MobileNet Demo"</span>)</span><br><span class="line">lcd.draw_string(<span class="number">100</span>,<span class="number">112</span>,<span class="string">"Loading labels..."</span>)</span><br><span class="line">f=open(<span class="string">'/sd4/labels.txt'</span>,<span class="string">'r'</span>)</span><br><span class="line">labels=f.readlines()</span><br><span class="line">f.close()</span><br><span class="line">task = kpu.load(<span class="number">0x200000</span>)</span><br><span class="line">clock = time.clock()</span><br><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">    img = sensor.snapshot()</span><br><span class="line">    <span class="comment">#img2=img.resize(128,128)</span></span><br><span class="line">    clock.tick()</span><br><span class="line">    fmap = kpu.forward(task, img)</span><br><span class="line">    fps=clock.fps()</span><br><span class="line">    plist=fmap[:]</span><br><span class="line">    pmax=max(plist)</span><br><span class="line">    max_index=plist.index(pmax)</span><br><span class="line">    a = lcd.display(img, oft=(<span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line">    lcd.draw_string(<span class="number">0</span>, <span class="number">224</span>, <span class="string">"%.2f:%s                            "</span>%(pmax, labels[max_index].strip()))</span><br><span class="line">    print(plist)</span><br><span class="line">a = kpu.deinit(task)</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://www.instructables.com/id/Transfer-Learning-With-Sipeed-MaiX-and-Arduino-IDE/" target="_blank" rel="noopener">https://www.instructables.com/id/Transfer-Learning-With-Sipeed-MaiX-and-Arduino-IDE/</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/k210/" rel="tag"># k210</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/08/27/modelTransfer/" rel="next" title="模型转换说明">
+                  <i class="fa fa-chevron-left"></i> 模型转换说明
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/leon.gif"
+      alt="ray">
+  <p class="site-author-name" itemprop="name">ray</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行"><span class="nav-number">1.</span> <span class="nav-text">通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码下载地址："><span class="nav-number">1.1.</span> <span class="nav-text">代码下载地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试代码：-用来下载mobileNet模型并测试-检查本地环境"><span class="nav-number">1.2.</span> <span class="nav-text">测试代码：(用来下载mobileNet模型并测试,检查本地环境)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练代码：-images文件中放入要训练分类图片-比如新建cat-dog文件夹并放入相关图片用于训练"><span class="nav-number">1.3.</span> <span class="nav-text">训练代码：(images文件中放入要训练分类图片,比如新建cat,dog文件夹并放入相关图片用于训练)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试代码：-测试生成的模型效果"><span class="nav-number">1.4.</span> <span class="nav-text">测试代码：(测试生成的模型效果)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#h5转tflite"><span class="nav-number">1.5.</span> <span class="nav-text">h5转tflite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用kflash烧录到一个地址，比如-0x200000"><span class="nav-number">1.6.</span> <span class="nav-text">用kflash烧录到一个地址，比如:0x200000</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#micropython代码如下："><span class="nav-number">1.7.</span> <span class="nav-text">micropython代码如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考："><span class="nav-number">1.8.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ray</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>

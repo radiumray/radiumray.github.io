@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="模型转换示意图ckpt  -&amp;gt;  pb  &amp;lt;-&amp;gt;  tflite  -&amp;gt;  kmodel  ∧     / ∧  |    /   |  ∨  ∨   ∨  graph   pbtxt  ckpt-&amp;gt;|-&amp;gt;pb-&amp;gt;tflite-&amp;gt;kmodel h5----/文件后缀说明 model.ckpt.meta保存计算图的结构，即神经网络的结构 checkpo">
+  <meta name="description" content="mnist数据集 tensorflow训练模型ckpt-&amp;gt;pb pb转tflite tflite转kmodel 转换工具Maix_Toolbox环境搭建  模型转换示意图ckpt  -&amp;gt;  pb  &amp;lt;-&amp;gt;  tflite  -&amp;gt;  kmodel  ∧     / ∧  |    /   |  ∨  ∨   ∨  graph   pbtxt  ckpt-&amp;gt;|-&amp;">
 <meta name="keywords" content="K210">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模型转换说明">
 <meta property="og:url" content="http://leirobot.com/2019/08/27/modelTransfer/index.html">
 <meta property="og:site_name" content="雷">
-<meta property="og:description" content="模型转换示意图ckpt  -&amp;gt;  pb  &amp;lt;-&amp;gt;  tflite  -&amp;gt;  kmodel  ∧     / ∧  |    /   |  ∨  ∨   ∨  graph   pbtxt  ckpt-&amp;gt;|-&amp;gt;pb-&amp;gt;tflite-&amp;gt;kmodel h5----/文件后缀说明 model.ckpt.meta保存计算图的结构，即神经网络的结构 checkpo">
+<meta property="og:description" content="mnist数据集 tensorflow训练模型ckpt-&amp;gt;pb pb转tflite tflite转kmodel 转换工具Maix_Toolbox环境搭建  模型转换示意图ckpt  -&amp;gt;  pb  &amp;lt;-&amp;gt;  tflite  -&amp;gt;  kmodel  ∧     / ∧  |    /   |  ∨  ∨   ∨  graph   pbtxt  ckpt-&amp;gt;|-&amp;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-05T08:24:08.648Z">
+<meta property="og:updated_time" content="2019-09-07T02:54:01.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="模型转换说明">
-<meta name="twitter:description" content="模型转换示意图ckpt  -&amp;gt;  pb  &amp;lt;-&amp;gt;  tflite  -&amp;gt;  kmodel  ∧     / ∧  |    /   |  ∨  ∨   ∨  graph   pbtxt  ckpt-&amp;gt;|-&amp;gt;pb-&amp;gt;tflite-&amp;gt;kmodel h5----/文件后缀说明 model.ckpt.meta保存计算图的结构，即神经网络的结构 checkpo">
+<meta name="twitter:description" content="mnist数据集 tensorflow训练模型ckpt-&amp;gt;pb pb转tflite tflite转kmodel 转换工具Maix_Toolbox环境搭建  模型转换示意图ckpt  -&amp;gt;  pb  &amp;lt;-&amp;gt;  tflite  -&amp;gt;  kmodel  ∧     / ∧  |    /   |  ∨  ∨   ∨  graph   pbtxt  ckpt-&amp;gt;|-&amp;">
   <link rel="alternate" href="/atom.xml" title="雷" type="application/atom+xml">
   <link rel="canonical" href="http://leirobot.com/2019/08/27/modelTransfer/">
 
@@ -285,7 +285,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-09-05 16:24:08" itemprop="dateModified" datetime="2019-09-05T16:24:08+08:00">2019-09-05</time>
+                <time title="修改时间：2019-09-07 10:54:01" itemprop="dateModified" datetime="2019-09-07T10:54:01+08:00">2019-09-07</time>
               </span>
             
           
@@ -314,7 +314,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="模型转换示意图"><a href="#模型转换示意图" class="headerlink" title="模型转换示意图"></a>模型转换示意图</h1><pre><code>ckpt  -&gt;  pb  &lt;-&gt;  tflite  -&gt;  kmodel
+        <ul>
+<li>mnist数据集</li>
+<li>tensorflow训练模型ckpt-&gt;pb</li>
+<li>pb转tflite</li>
+<li>tflite转kmodel</li>
+<li>转换工具Maix_Toolbox环境搭建</li>
+</ul>
+<h1 id="模型转换示意图"><a href="#模型转换示意图" class="headerlink" title="模型转换示意图"></a>模型转换示意图</h1><pre><code>ckpt  -&gt;  pb  &lt;-&gt;  tflite  -&gt;  kmodel
  ∧     / ∧
  |    /   |
  ∨  ∨   ∨

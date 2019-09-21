@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="雷">
 <meta property="og:description" content="通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行代码下载地址：https://codeload.github.com/AIWintermuteAI/transfer_learning_sipeed/zip/master 测试代码：(用来下载mobileNet模型并测试,检查本地环境)1234567891011121314151617181920212">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-07T03:22:43.399Z">
+<meta property="og:updated_time" content="2019-09-07T08:53:24.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mobileNet迁移学习训练猫狗分类生成kmodel模型,k210运行">
 <meta name="twitter:description" content="通过mobileNet冻结预训练权重值，自定义训练猫，狗分类，转换模型kmodel在k210运行代码下载地址：https://codeload.github.com/AIWintermuteAI/transfer_learning_sipeed/zip/master 测试代码：(用来下载mobileNet模型并测试,检查本地环境)1234567891011121314151617181920212">
@@ -285,7 +285,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-09-07 11:22:43" itemprop="dateModified" datetime="2019-09-07T11:22:43+08:00">2019-09-07</time>
+                <time title="修改时间：2019-09-07 16:53:24" itemprop="dateModified" datetime="2019-09-07T16:53:24+08:00">2019-09-07</time>
               </span>
             
           
@@ -333,14 +333,8 @@
 
 <h2 id="问题：Converting-Keras-model-Conv2d-error"><a href="#问题：Converting-Keras-model-Conv2d-error" class="headerlink" title="问题：Converting Keras model, Conv2d error"></a>问题：Converting Keras model, Conv2d error</h2><p>原话：<br>    Perhaps you used wrong parameters? <a href="https://github.com/kendryte/nncase#supported-layers" target="_blank" rel="noopener">https://github.com/kendryte/nncase#supported-layers</a></p>
 <pre><code>When using TensorFlow Conv2d/DepthwiseConv2d kernel=3x3 stride=2 padding=same, you must first use tf.pad([[0,0],[1,1],[1,1],[0,0]]) to pad the input and then use Conv2d/DepthwiseConv2d with valid padding.</code></pre><p>大概意思：<br>    或许你使用了错误的参数，参考：<br>    <a href="https://github.com/kendryte/nncase#supported-layers" target="_blank" rel="noopener">https://github.com/kendryte/nncase#supported-layers</a></p>
-<pre><code>在使用 TensorFlow Conv2d/DepthwiseConv2d kernel=3x3 stride=2 padding=same 的时候，你必须先使用 tf.pad([[0,0],[1,1],[1,1],[0,0]]) 去填充输入 并且使用 Conv2d/DepthwiseConv2d 的padding=valid参数
-
-
-Hi,
-
-i managed to get it to work by making sure that every conv2d layer have the ‘same’ padding. Do you have any tip so that the conversion from h5 to kmodel will result in a small memory footprint ? When i convert for now, i have a kmodel that is as large as the .pb graph.
-
-Regards,</code></pre><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://www.instructables.com/id/Transfer-Learning-With-Sipeed-MaiX-and-Arduino-IDE/" target="_blank" rel="noopener">https://www.instructables.com/id/Transfer-Learning-With-Sipeed-MaiX-and-Arduino-IDE/</a><br><a href="https://bbs.sipeed.com/t/topic/986" target="_blank" rel="noopener">https://bbs.sipeed.com/t/topic/986</a></p>
+<pre><code>在使用 TensorFlow Conv2d/DepthwiseConv2d kernel=3x3 stride=2 padding=same 的时候，你必须先使用 tf.pad([[0,0],[1,1],[1,1],[0,0]]) 去填充输入 并且使用 Conv2d/DepthwiseConv2d 的padding=valid参数</code></pre><p>支持的layer：<br>    <a href="https://github.com/dotnetGame/nncase#supported-layers" target="_blank" rel="noopener">https://github.com/dotnetGame/nncase#supported-layers</a></p>
+<pre><code>i managed to get it to work by making sure that every conv2d layer have the ‘same’ padding. Do you have any tip so that the conversion from h5 to kmodel will result in a small memory footprint ? When i convert for now, i have a kmodel that is as large as the .pb graph.</code></pre><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://www.instructables.com/id/Transfer-Learning-With-Sipeed-MaiX-and-Arduino-IDE/" target="_blank" rel="noopener">https://www.instructables.com/id/Transfer-Learning-With-Sipeed-MaiX-and-Arduino-IDE/</a><br><a href="https://bbs.sipeed.com/t/topic/986" target="_blank" rel="noopener">https://bbs.sipeed.com/t/topic/986</a></p>
 
     </div>
 

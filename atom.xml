@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://leirobot.com/"/>
-  <updated>2019-09-07T08:53:24.920Z</updated>
+  <updated>2019-09-26T06:43:38.109Z</updated>
   <id>http://leirobot.com/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C++前端pytorch(libtorch)和opencv编译安装环境搭建</title>
+    <link href="http://leirobot.com/2019/09/26/libTorchOpencv/"/>
+    <id>http://leirobot.com/2019/09/26/libTorchOpencv/</id>
+    <published>2019-09-26T04:55:42.000Z</published>
+    <updated>2019-09-26T06:43:38.109Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="C-前端pytorch-libtorch-和opencv编译安装环境搭建"><a href="#C-前端pytorch-libtorch-和opencv编译安装环境搭建" class="headerlink" title="C++前端pytorch(libtorch)和opencv编译安装环境搭建"></a>C++前端pytorch(libtorch)和opencv编译安装环境搭建</h1><h2 id="安装opencv"><a href="#安装opencv" class="headerlink" title="安装opencv:"></a>安装opencv:</h2><p><a href="https://www.cnblogs.com/raina/p/11365854.html" target="_blank" rel="noopener">https://www.cnblogs.com/raina/p/11365854.html</a></p><h2 id="下载或编译libtorch"><a href="#下载或编译libtorch" class="headerlink" title="下载或编译libtorch:"></a>下载或编译libtorch:</h2><p><a href="https://oldpan.me/archives/pytorch-c-libtorch-inference" target="_blank" rel="noopener">https://oldpan.me/archives/pytorch-c-libtorch-inference</a></p><h2 id="CMakeLists-txt"><a href="#CMakeLists-txt" class="headerlink" title="CMakeLists.txt"></a>CMakeLists.txt</h2><pre><code>cmake_minimum_required(VERSION 3.0 FATAL_ERROR)project(opencvCompil)find_package(Torch REQUIRED)        # 查找libtorchfind_package(OpenCV REQUIRED)       # 查找OpenCVif(NOT Torch_FOUND)message(FATAL_ERROR &quot;Pytorch Not Found!&quot;)endif(NOT Torch_FOUND)message(STATUS &quot;Pytorch status:&quot;)message(STATUS &quot;    libraries: ${TORCH_LIBRARIES}&quot;)message(STATUS &quot;OpenCV library status:&quot;)message(STATUS &quot;    version: ${OpenCV_VERSION}&quot;)message(STATUS &quot;    libraries: ${OpenCV_LIBS}&quot;)message(STATUS &quot;    include path: ${OpenCV_INCLUDE_DIRS}&quot;)add_executable(opencvCompil Main.cpp)# target_link_libraries(opencvCompil ${TORCH_LIBRARIES}) target_link_libraries(opencvCompil &quot;${TORCH_LIBRARIES}&quot; ${OpenCV_LIBS})# target_link_libraries(opencvCompil ${OpenCV_LIBS}) set_property(TARGET opencvCompil PROPERTY CXX_STANDARD 11)</code></pre><h2 id="Main-cpp"><a href="#Main-cpp" class="headerlink" title="Main.cpp"></a>Main.cpp</h2><pre><code>#include &lt;torch/torch.h&gt;#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;#include &lt;opencv2/core.hpp&gt;#include &lt;opencv2/imgproc.hpp&gt;#include &lt;opencv2/highgui.hpp&gt;#include &lt;opencv2/videoio.hpp&gt;using namespace cv;using namespace std;void drawText(Mat &amp; image){    putText(image, &quot;Hello OpenCV&quot;,            Point(20, 50),            FONT_HERSHEY_COMPLEX, 1, // font face and scale            Scalar(255, 255, 255), // white            1, LINE_AA); // line thickness and type}int main() {    torch::Tensor tensor = torch::rand({2, 3});    cout &lt;&lt; tensor &lt;&lt; endl;    // Mat image;    // image = imread(&quot;1.jpg&quot;);    // if ( image.empty() )    // {    //     cout&lt;&lt;&quot;No image data!&quot;&lt;&lt; endl;    //     return -1;    // }    // namedWindow(&quot;Display Image&quot;);    // imshow(&quot;Display Image&quot;, image);    // waitKey(0);    cout &lt;&lt; &quot;Built with OpenCV &quot; &lt;&lt; CV_VERSION &lt;&lt; endl;    Mat image;    VideoCapture capture;    capture.open(0);    if(capture.isOpened())    {        cout &lt;&lt; &quot;Capture is opened&quot; &lt;&lt; endl;        for(;;)        {            capture &gt;&gt; image;            if(image.empty())                break;            drawText(image);            imshow(&quot;Sample&quot;, image);            if(waitKey(10) &gt;= 0)                break;        }    }    else    {        cout &lt;&lt; &quot;No capture&quot; &lt;&lt; endl;        image = Mat::zeros(480, 640, CV_8UC1);        drawText(image);        imshow(&quot;Sample&quot;, image);        waitKey(0);    }    return 0;}</code></pre><h2 id="执行cmake和make"><a href="#执行cmake和make" class="headerlink" title="执行cmake和make:"></a>执行cmake和make:</h2><pre><code>mkdir buildcd buildcmake -DCMAKE_PREFIX_PATH=/home/ray/pytorch/torch/share/cmake ./make</code></pre><h2 id="c-cpp-properties-json"><a href="#c-cpp-properties-json" class="headerlink" title="c_cpp_properties.json"></a>c_cpp_properties.json</h2><pre><code>{    &quot;configurations&quot;: [        {            &quot;name&quot;: &quot;Linux&quot;,            &quot;includePath&quot;: [                &quot;${workspaceFolder}/**&quot;,                &quot;/usr/local/include/opencv4&quot;,                &quot;/home/ray/pytorch/**&quot;            ],            &quot;defines&quot;: [],            &quot;compilerPath&quot;: &quot;/usr/bin/gcc&quot;,            &quot;cStandard&quot;: &quot;c11&quot;,            &quot;cppStandard&quot;: &quot;c++17&quot;,            &quot;intelliSenseMode&quot;: &quot;clang-x64&quot;        }    ],    &quot;version&quot;: 4}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;C-前端pytorch-libtorch-和opencv编译安装环境搭建&quot;&gt;&lt;a href=&quot;#C-前端pytorch-libtorch-和opencv编译安装环境搭建&quot; class=&quot;headerlink&quot; title=&quot;C++前端pytorch(libtorc
+      
+    
+    </summary>
+    
+      <category term="c++" scheme="http://leirobot.com/categories/c/"/>
+    
+      <category term="pytorch" scheme="http://leirobot.com/categories/c/pytorch/"/>
+    
+      <category term="opencv" scheme="http://leirobot.com/categories/c/pytorch/opencv/"/>
+    
+    
+      <category term="c++" scheme="http://leirobot.com/tags/c/"/>
+    
+      <category term="pytorch" scheme="http://leirobot.com/tags/pytorch/"/>
+    
+      <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
+    
+  </entry>
   
   <entry>
     <title>mobileNet迁移学习训练猫狗分类生成kmodel模型,k210运行</title>
@@ -128,6 +161,31 @@
   </entry>
   
   <entry>
+    <title>Ubuntu安装opencv</title>
+    <link href="http://leirobot.com/2019/08/11/ubuntuOpencv/"/>
+    <id>http://leirobot.com/2019/08/11/ubuntuOpencv/</id>
+    <published>2019-08-11T08:52:24.000Z</published>
+    <updated>2019-08-19T10:39:47.015Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下载opencv"><a href="#下载opencv" class="headerlink" title="下载opencv"></a>下载opencv</h2><p>git clone <a href="https://github.com/opencv/opencv.git" target="_blank" rel="noopener">https://github.com/opencv/opencv.git</a><br>git clone <a href="https://github.com/opencv/opencv_contrib.git" target="_blank" rel="noopener">https://github.com/opencv/opencv_contrib.git</a></p><p><a href="https://www.w3cschool.cn/opencv/opencv-sjw628u6.html" target="_blank" rel="noopener">https://www.w3cschool.cn/opencv/opencv-sjw628u6.html</a></p><p><a href="http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/" target="_blank" rel="noopener">http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;下载opencv&quot;&gt;&lt;a href=&quot;#下载opencv&quot; class=&quot;headerlink&quot; title=&quot;下载opencv&quot;&gt;&lt;/a&gt;下载opencv&lt;/h2&gt;&lt;p&gt;git clone &lt;a href=&quot;https://github.com/opencv/o
+      
+    
+    </summary>
+    
+      <category term="opencv" scheme="http://leirobot.com/categories/opencv/"/>
+    
+    
+      <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
+    
+  </entry>
+  
+  <entry>
     <title>设计模式</title>
     <link href="http://leirobot.com/2019/08/11/designPattern/"/>
     <id>http://leirobot.com/2019/08/11/designPattern/</id>
@@ -172,34 +230,9 @@
       <category term="opencv" scheme="http://leirobot.com/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/opencv/"/>
     
     
+      <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
+    
       <category term="sdc" scheme="http://leirobot.com/tags/sdc/"/>
-    
-      <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntu安装opencv</title>
-    <link href="http://leirobot.com/2019/08/11/ubuntuOpencv/"/>
-    <id>http://leirobot.com/2019/08/11/ubuntuOpencv/</id>
-    <published>2019-08-11T08:52:24.000Z</published>
-    <updated>2019-08-19T10:39:47.015Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="下载opencv"><a href="#下载opencv" class="headerlink" title="下载opencv"></a>下载opencv</h2><p>git clone <a href="https://github.com/opencv/opencv.git" target="_blank" rel="noopener">https://github.com/opencv/opencv.git</a><br>git clone <a href="https://github.com/opencv/opencv_contrib.git" target="_blank" rel="noopener">https://github.com/opencv/opencv_contrib.git</a></p><p><a href="https://www.w3cschool.cn/opencv/opencv-sjw628u6.html" target="_blank" rel="noopener">https://www.w3cschool.cn/opencv/opencv-sjw628u6.html</a></p><p><a href="http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/" target="_blank" rel="noopener">http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;下载opencv&quot;&gt;&lt;a href=&quot;#下载opencv&quot; class=&quot;headerlink&quot; title=&quot;下载opencv&quot;&gt;&lt;/a&gt;下载opencv&lt;/h2&gt;&lt;p&gt;git clone &lt;a href=&quot;https://github.com/opencv/o
-      
-    
-    </summary>
-    
-      <category term="opencv" scheme="http://leirobot.com/categories/opencv/"/>
-    
-    
-      <category term="opencv" scheme="http://leirobot.com/tags/opencv/"/>
     
   </entry>
   
@@ -231,7 +264,7 @@
     <link href="http://leirobot.com/2019/08/11/derivative/"/>
     <id>http://leirobot.com/2019/08/11/derivative/</id>
     <published>2019-08-11T01:55:42.000Z</published>
-    <updated>2019-08-11T12:07:34.413Z</updated>
+    <updated>2019-09-26T06:42:24.638Z</updated>
     
     <content type="html"><![CDATA[<p>函数求导，损失函数，梯度下降，数学公式推导，3d动画演示</p><a id="more"></a><a href="https://github.com/radiumray/ML" target="_blank" rel="noopener">点击进入：<img border="0" src></a>]]></content>
     

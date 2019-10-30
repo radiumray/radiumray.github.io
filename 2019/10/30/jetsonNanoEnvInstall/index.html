@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/zl.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/zl.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="jetson nano 装机配置说明烧录系统请访问官方地址按步操作:https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#prepare 安装相关依赖包1234sudo apt-get updatesudo apt-get upgradesudo apt-get install build-essent">
+<meta name="keywords" content="nvidia,pytorch,opencv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jetson nano 装机配置说明">
+<meta property="og:url" content="http://leirobot.com/2019/10/30/jetsonNanoEnvInstall/index.html">
+<meta property="og:site_name" content="雷">
+<meta property="og:description" content="jetson nano 装机配置说明烧录系统请访问官方地址按步操作:https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#prepare 安装相关依赖包1234sudo apt-get updatesudo apt-get upgradesudo apt-get install build-essent">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-30T03:22:26.004Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jetson nano 装机配置说明">
+<meta name="twitter:description" content="jetson nano 装机配置说明烧录系统请访问官方地址按步操作:https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#prepare 安装相关依赖包1234sudo apt-get updatesudo apt-get upgradesudo apt-get install build-essent">
+  <link rel="alternate" href="/atom.xml" title="雷" type="application/atom+xml">
+  <link rel="canonical" href="http://leirobot.com/2019/10/30/jetsonNanoEnvInstall/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>jetson nano 装机配置说明 | 雷</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-right">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-sitemap">
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leirobot.com/2019/10/30/jetsonNanoEnvInstall/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ray">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leon.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">jetson nano 装机配置说明
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-30 10:39:42 / 修改时间：11:22:26" itemprop="dateCreated datePublished" datetime="2019-10-30T10:39:42+08:00">2019-10-30</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nvidia/" itemprop="url" rel="index"><span itemprop="name">nvidia</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nvidia/pytorch/" itemprop="url" rel="index"><span itemprop="name">pytorch</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nvidia/pytorch/opencv/" itemprop="url" rel="index"><span itemprop="name">opencv</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="jetson-nano-装机配置说明"><a href="#jetson-nano-装机配置说明" class="headerlink" title="jetson nano 装机配置说明"></a>jetson nano 装机配置说明</h1><h2 id="烧录系统"><a href="#烧录系统" class="headerlink" title="烧录系统"></a>烧录系统</h2><p>请访问官方地址按步操作:<br><a href="https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#prepare" target="_blank" rel="noopener">https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#prepare</a></p>
+<h2 id="安装相关依赖包"><a href="#安装相关依赖包" class="headerlink" title="安装相关依赖包"></a>安装相关依赖包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br><span class="line">sudo apt-get install build-essential python3 python3-dev python3-pip libhdf5-serial-dev hdf5-tools nano ntp</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装虚拟环境工具"><a href="#安装虚拟环境工具" class="headerlink" title="安装虚拟环境工具"></a>安装虚拟环境工具</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">pip3 install virtualenv</span><br><span class="line"></span><br><span class="line">创建环境,指定python版本</span><br><span class="line">virtualenv rayAI --python=python3.6.8</span><br><span class="line">退出虚拟环境</span><br><span class="line">deactivate</span><br><span class="line">删除虚拟环境</span><br><span class="line">rm -r rayAI</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source env/bin/activate"</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="扩展交换空间"><a href="#扩展交换空间" class="headerlink" title="扩展交换空间"></a>扩展交换空间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Allocates 4G of additional swap space at /var/swapfile</span></span><br><span class="line">sudo fallocate -l 4G /var/swapfile</span><br><span class="line"><span class="comment"># Permissions</span></span><br><span class="line">sudo chmod 600 /var/swapfile</span><br><span class="line"><span class="comment"># Make swap space</span></span><br><span class="line">sudo mkswap /var/swapfile</span><br><span class="line"><span class="comment"># Turn on swap</span></span><br><span class="line">sudo swapon /var/swapfile</span><br><span class="line"><span class="comment"># Automount swap space on reboot</span></span><br><span class="line">sudo bash -c <span class="string">'echo "/var/swapfile swap swap defaults 0 0" &gt;&gt; /etc/fstab'</span></span><br><span class="line"><span class="comment"># Reboot</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装编译opencv-4-1-1"><a href="#安装编译opencv-4-1-1" class="headerlink" title="安装编译opencv 4.1.1"></a>安装编译opencv 4.1.1</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Update</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br><span class="line"><span class="comment"># Pre-requisites</span></span><br><span class="line">sudo apt-get install build-essential cmake unzip pkg-config</span><br><span class="line">sudo apt-get install libjpeg-dev libpng-dev libtiff-dev</span><br><span class="line">sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev</span><br><span class="line">sudo apt-get install libxvidcore-dev libx264-dev</span><br><span class="line">sudo apt-get install libgtk-3-dev</span><br><span class="line">sudo apt-get install libatlas-base-dev gfortran</span><br><span class="line">sudo apt-get install python3-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install Numpy</span></span><br><span class="line">pip install numpy</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download sources</span></span><br><span class="line">wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.1.zip</span><br><span class="line">wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.1.1.zip</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">upzip opencv-4.1.1.zip</span><br><span class="line">unzip opencv_contrib-4.1.1.zip</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a build directory</span></span><br><span class="line">mkdir release</span><br><span class="line"><span class="built_in">cd</span> release/</span><br><span class="line"></span><br><span class="line">cmake     -D WITH_CUDA=ON \</span><br><span class="line">        -D OPENCV_EXTRA_MODULES_PATH=/home/ray/opencv_contrib-4.1.1/modules \</span><br><span class="line">        -D WITH_GSTREAMER=ON \</span><br><span class="line">        -D WITH_LIBV4L=ON \</span><br><span class="line">        -D BUILD_opencv_python2=ON \</span><br><span class="line">        -D BUILD_opencv_python3=ON \</span><br><span class="line">        -D BUILD_TESTS=OFF \</span><br><span class="line">        -D BUILD_PERF_TESTS=OFF \</span><br><span class="line">        -D BUILD_EXAMPLES=OFF \</span><br><span class="line">        -D CMAKE_BUILD_TYPE=RELEASE \</span><br><span class="line">        -D CMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span> ..</span><br><span class="line"></span><br><span class="line">make -j4</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译到27-时会报错Eigen-Core-按照以下修改"><a href="#编译到27-时会报错Eigen-Core-按照以下修改" class="headerlink" title="编译到27%时会报错Eigen/Core, 按照以下修改"></a>编译到27%时会报错Eigen/Core, 按照以下修改</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">../opencv/modules/core/include/opencv2/core/private.hpp中的</span><br><span class="line"><span class="comment"># include&lt;Eigen/Core&gt;</span></span><br><span class="line">改为</span><br><span class="line"><span class="comment"># include&lt;eigen3/Eigen/Core&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编译失败多编译几次，我编译了3次。。。"><a href="#编译失败多编译几次，我编译了3次。。。" class="headerlink" title="编译失败多编译几次，我编译了3次。。。"></a>编译失败多编译几次，我编译了3次。。。</h2><h2 id="原生opencv库与虚拟环境链接"><a href="#原生opencv库与虚拟环境链接" class="headerlink" title="原生opencv库与虚拟环境链接"></a>原生opencv库与虚拟环境链接</h2><p>The native library should now be installed in a location that looks like /usr/local/lib/python3.6/site-packages/cv2/python-3.6/cv2.cpython-36m-xxx-linux-gnu.so</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Go to the folder where OpenCV's native library is built</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/lib/python3.6/site-packages/cv2/python-3.6</span><br><span class="line"><span class="comment"># Rename</span></span><br><span class="line">mv cv2.cpython-36m-xxx-linux-gnu.so cv2.so</span><br><span class="line"><span class="comment"># Go to your virtual environments site-packages folder</span></span><br><span class="line"><span class="built_in">cd</span> ~/./virtualenvs/rayAI/lib/python3.6/site-packages/</span><br><span class="line"><span class="comment"># Symlink the native library</span></span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/lib/python3.6/site-packages/cv2/python-3.6/cv2.so cv2.so</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/nvidia/" rel="tag"># nvidia</a>
+            
+              <a href="/tags/pytorch/" rel="tag"># pytorch</a>
+            
+              <a href="/tags/opencv/" rel="tag"># opencv</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/26/libTorchOpencv/" rel="next" title="C++前端pytorch(libtorch)和opencv编译安装环境搭建">
+                  <i class="fa fa-chevron-left"></i> C++前端pytorch(libtorch)和opencv编译安装环境搭建
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/leon.gif"
+      alt="ray">
+  <p class="site-author-name" itemprop="name">ray</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jetson-nano-装机配置说明"><span class="nav-number">1.</span> <span class="nav-text">jetson nano 装机配置说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#烧录系统"><span class="nav-number">1.1.</span> <span class="nav-text">烧录系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装相关依赖包"><span class="nav-number">1.2.</span> <span class="nav-text">安装相关依赖包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装虚拟环境工具"><span class="nav-number">1.3.</span> <span class="nav-text">安装虚拟环境工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展交换空间"><span class="nav-number">1.4.</span> <span class="nav-text">扩展交换空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装编译opencv-4-1-1"><span class="nav-number">1.5.</span> <span class="nav-text">安装编译opencv 4.1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译到27-时会报错Eigen-Core-按照以下修改"><span class="nav-number">1.6.</span> <span class="nav-text">编译到27%时会报错Eigen/Core, 按照以下修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译失败多编译几次，我编译了3次。。。"><span class="nav-number">1.7.</span> <span class="nav-text">编译失败多编译几次，我编译了3次。。。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生opencv库与虚拟环境链接"><span class="nav-number">1.8.</span> <span class="nav-text">原生opencv库与虚拟环境链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ray</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>

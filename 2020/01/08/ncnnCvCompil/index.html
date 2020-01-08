@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/zl.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/zl.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="NCNN环境搭建,Opencv与ncnn开发环境配置模板NCNN环境搭建获取ncnnhttps://github.com/Tencent/ncnn 编译ncnn123456cd ncnnmkdir -p buildcd buildcmake ..make -j4make install  安装onnx-simplifier1pip install onnx-simplifier  使用123456">
+<meta name="keywords" content="opencv,ncnn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NCNN环境搭建,Opencv与ncnn开发环境配置模板">
+<meta property="og:url" content="http://leirobot.com/2020/01/08/ncnnCvCompil/index.html">
+<meta property="og:site_name" content="雷">
+<meta property="og:description" content="NCNN环境搭建,Opencv与ncnn开发环境配置模板NCNN环境搭建获取ncnnhttps://github.com/Tencent/ncnn 编译ncnn123456cd ncnnmkdir -p buildcd buildcmake ..make -j4make install  安装onnx-simplifier1pip install onnx-simplifier  使用123456">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-08T07:41:01.721Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NCNN环境搭建,Opencv与ncnn开发环境配置模板">
+<meta name="twitter:description" content="NCNN环境搭建,Opencv与ncnn开发环境配置模板NCNN环境搭建获取ncnnhttps://github.com/Tencent/ncnn 编译ncnn123456cd ncnnmkdir -p buildcd buildcmake ..make -j4make install  安装onnx-simplifier1pip install onnx-simplifier  使用123456">
+  <link rel="alternate" href="/atom.xml" title="雷" type="application/atom+xml">
+  <link rel="canonical" href="http://leirobot.com/2020/01/08/ncnnCvCompil/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>NCNN环境搭建,Opencv与ncnn开发环境配置模板 | 雷</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-right">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-sitemap">
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leirobot.com/2020/01/08/ncnnCvCompil/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ray">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leon.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">NCNN环境搭建,Opencv与ncnn开发环境配置模板
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-08 13:09:11 / 修改时间：15:41:01" itemprop="dateCreated datePublished" datetime="2020-01-08T13:09:11+08:00">2020-01-08</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ncnn/" itemprop="url" rel="index"><span itemprop="name">ncnn</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ncnn/opencv/" itemprop="url" rel="index"><span itemprop="name">opencv</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="NCNN环境搭建-Opencv与ncnn开发环境配置模板"><a href="#NCNN环境搭建-Opencv与ncnn开发环境配置模板" class="headerlink" title="NCNN环境搭建,Opencv与ncnn开发环境配置模板"></a>NCNN环境搭建,Opencv与ncnn开发环境配置模板</h1><h2 id="NCNN环境搭建"><a href="#NCNN环境搭建" class="headerlink" title="NCNN环境搭建"></a>NCNN环境搭建</h2><h3 id="获取ncnn"><a href="#获取ncnn" class="headerlink" title="获取ncnn"></a>获取ncnn</h3><p><a href="https://github.com/Tencent/ncnn" target="_blank" rel="noopener">https://github.com/Tencent/ncnn</a></p>
+<h3 id="编译ncnn"><a href="#编译ncnn" class="headerlink" title="编译ncnn"></a>编译ncnn</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ncnn</span><br><span class="line">mkdir -p build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake ..</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装onnx-simplifier"><a href="#安装onnx-simplifier" class="headerlink" title="安装onnx-simplifier"></a>安装onnx-simplifier</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install onnx-simplifier</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># onnx简化模型</span></span><br><span class="line">python -m onnxsim model.onnx model-sim.onnx</span><br><span class="line"></span><br><span class="line"><span class="comment"># onnx转换成ncnn</span></span><br><span class="line"><span class="comment"># 进入build/tools/onnx,如果编译成功会有onnx2ncnn转换工具</span></span><br><span class="line">./onnx2ncnn model-sim.onnx model.param model.bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># caff转换成ncnn</span></span><br><span class="line">./caffe2ncnn mobilnet_yolo_deploy.prototxt mobilenet_yolo_deploy_iter_80000.caffemodel mobilenet_yolo.param mobilenet_yolo.bin</span><br></pre></td></tr></table></figure>
+
+<h2 id="Opencv与ncnn开发环境配置模板"><a href="#Opencv与ncnn开发环境配置模板" class="headerlink" title="Opencv与ncnn开发环境配置模板"></a>Opencv与ncnn开发环境配置模板</h2><h3 id="opencv编译详细步骤："><a href="#opencv编译详细步骤：" class="headerlink" title="opencv编译详细步骤："></a>opencv编译详细步骤：</h3><p><a href="https://www.cnblogs.com/raina/p/11365854.html" target="_blank" rel="noopener">https://www.cnblogs.com/raina/p/11365854.html</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo apt-get install build-essential</span><br><span class="line">sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev</span><br><span class="line">sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev <span class="comment"># 处理图像所需的包</span></span><br><span class="line">sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev liblapacke-dev</span><br><span class="line">sudo apt-get install libxvidcore-dev libx264-dev <span class="comment"># 处理视频所需的包</span></span><br><span class="line">sudo apt-get install libatlas-base-dev gfortran <span class="comment"># 优化opencv功能</span></span><br><span class="line">sudo apt-get install ffmpeg</span><br><span class="line"></span><br><span class="line"><span class="comment">## 出现下面错误</span></span><br><span class="line">errorE: unable to locate libjasper-dev</span><br><span class="line"></span><br><span class="line">sudo apt-get install software-properties-common</span><br><span class="line">sudo add-apt-repository <span class="string">"deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial main multiverse restricted universe"</span></span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install libjasper1 libjasper-dev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /xxxxx/xxxxx/opencv-4.1.1</span><br><span class="line">sudo mkdir build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line"></span><br><span class="line">sudo cmake -D CMAKE_BUILD_TYPE=RELEASE \</span><br><span class="line">-D CMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span> \</span><br><span class="line">-D OPENCV_EXTRA_MODULES_PATH=/home/[xxxxxxx]/opencv_contrib-4.1.1/modules \</span><br><span class="line">-D WITH_TBB=ON \</span><br><span class="line">-D WITH_V4L=ON \</span><br><span class="line">-D WITH_GTK=ON \</span><br><span class="line">-D WITH_OPENGL=ON \</span><br><span class="line">-D WITH_VTK=ON \</span><br><span class="line">-D OPENCV_GENERATE_PKGCONFIG=YES ..</span><br><span class="line"></span><br><span class="line"><span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">sudo cmake -D CMAKE_BUILD_TYPE=RELEASE \</span></span><br><span class="line"><span class="string">-D CMAKE_INSTALL_PREFIX=/usr/local \</span></span><br><span class="line"><span class="string">-D OPENCV_EXTRA_MODULES_PATH=/home/[xxxxxxx]/opencv_contrib-4.1.1/modules \</span></span><br><span class="line"><span class="string">-D CMAKE_PREFIX_PATH=/home/[xxxxxxx]/Qt5.13.2/5.13.2/gcc_64/lib/cmake/Qt5 \</span></span><br><span class="line"><span class="string">-D WITH_TBB=ON \</span></span><br><span class="line"><span class="string">-D WITH_V4L=ON \</span></span><br><span class="line"><span class="string">-D WITH_QT=ON \</span></span><br><span class="line"><span class="string">-D WITH_GTK=ON \</span></span><br><span class="line"><span class="string">-D WITH_OPENGL=ON \</span></span><br><span class="line"><span class="string">-D WITH_VTK=ON \</span></span><br><span class="line"><span class="string">-D OPENCV_GENERATE_PKGCONFIG=YES ..</span></span><br><span class="line"><span class="string">'</span><span class="string">''</span></span><br><span class="line"></span><br><span class="line">sudo apt-get install cmake-qt-gui</span><br><span class="line">进入opencv的build</span><br><span class="line">sudo cmake-gui ..</span><br><span class="line">解决下载boostdesc_bgm.i之类的问题</span><br><span class="line"></span><br><span class="line">sudo make -j4</span><br><span class="line"></span><br><span class="line">sudo make install</span><br><span class="line"></span><br><span class="line">sudo sh -c <span class="string">'echo "/usr/local/lib" &gt; /etc/ld.so.conf.d/opencv.conf'</span></span><br><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure>
+
+<p>/opt/Qt5.13.0/5.13.0/gcc_64/lib/cmake/Qt5是我Qt的Qt5Config.cmake所在路径, 需要改成你自己的, 如果不需要opencv支持Qt用户界面, 可以把-D WITH_QT=ON \和-D CMAKE_PREFIX_PATH=/opt/Qt5.13.0/5.13.0/gcc_64/lib/cmake/Qt5 \两行删掉.<br>另外, 不指定”Qt5Config.cmake”所在路径, 在cmake编译的时候可能会报如下错误:</p>
+<p>CMake Error at cmake/OpenCVFindLibsGUI.cmake:18 (find_package):<br>Could not find a package configuration file provided by “Qt5” with any of<br>the following names:</p>
+<p> Qt5Config.cmake<br> qt5-config.cmake<br>Add the installation prefix of “Qt5” to CMAKE_PREFIX_PATH or set “Qt5_DIR”<br>to a directory containing one of the above files. If “Qt5” provides a<br>separate development package or SDK, be sure it has been installed.</p>
+<p>配置OpenCV环境<br>sudo gedit /etc/ld.so.conf.d/opencv.conf<br>在文件最后添加</p>
+<p>/usr/local/lib<br>生效配置:</p>
+<p>sudo ldconfig</p>
+<h3 id="CMakeLists-txt"><a href="#CMakeLists-txt" class="headerlink" title="CMakeLists.txt"></a>CMakeLists.txt</h3><pre><code># 最低版本要求
+cmake_minimum_required(VERSION 3.4.1)
+
+project(ncnnOpencv)
+
+# 设置C++编译版本
+set(CMAKE_CXX_STANDARD 11)
+
+# ncnn项目所在路径，需要替换
+set(NCNN_DIR /home/ray/ncnn)
+
+# 分别设置ncnn的链接库和头文件
+set(NCNN_LIBS ${NCNN_DIR}/build/install/lib/libncnn.a)
+set(NCNN_INCLUDE_DIRS ${NCNN_DIR}/build/install/include/ncnn)
+
+# 配置OpenCV
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+include_directories(${NCNN_INCLUDE_DIRS})
+
+# 配置OpenMP
+FIND_PACKAGE( OpenMP REQUIRED)  
+if(OPENMP_FOUND)  
+    message(&quot;OPENMP FOUND&quot;)  
+    set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}&quot;)  
+    set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}&quot;)  
+    set(CMAKE_EXE_LINKER_FLAGS &quot;${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}&quot;)  
+endif()  
+
+# 建立链接依赖
+add_executable(ncnnOpencv Main.cpp)
+target_link_libraries(ncnnOpencv ${NCNN_LIBS})
+target_link_libraries(ncnnOpencv ${OpenCV_LIBS})</code></pre><h3 id="Main-cpp"><a href="#Main-cpp" class="headerlink" title="Main.cpp"></a>Main.cpp</h3><pre><code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;algorithm&gt;
+#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;opencv2/core.hpp&gt;
+#include &lt;opencv2/imgproc.hpp&gt;
+#include &lt;opencv2/highgui.hpp&gt;
+#include &lt;opencv2/videoio.hpp&gt;
+
+#include &lt;stdio.h&gt;
+#include &lt;vector&gt;
+
+#include &quot;platform.h&quot;
+#include &quot;net.h&quot;
+#if NCNN_VULKAN
+#include &quot;gpu.h&quot;
+#endif // NCNN_VULKAN
+
+using namespace std;
+using namespace cv;
+
+struct Object
+{
+    cv::Rect_&lt;float&gt; rect;
+    int label;
+    float prob;
+};
+
+static int detect_yolov3(const cv::Mat&amp; bgr, std::vector&lt;Object&gt;&amp; objects)
+{
+    ncnn::Net yolov3;
+
+#if NCNN_VULKAN
+    yolov3.opt.use_vulkan_compute = true;
+#endif // NCNN_VULKAN
+
+    // original pretrained model from https://github.com/eric612/MobileNet-YOLO
+    // param : https://drive.google.com/open?id=1V9oKHP6G6XvXZqhZbzNKL6FI_clRWdC-
+    // bin : https://drive.google.com/open?id=1DBcuFCr-856z3FRQznWL_S5h-Aj3RawA
+    // the ncnn model https://github.com/nihui/ncnn-assets/tree/master/models
+    yolov3.load_param(&quot;mobilenet_yolo.param&quot;);
+    yolov3.load_model(&quot;mobilenet_yolo.bin&quot;);
+
+    const int target_size = 352;
+
+    int img_w = bgr.cols;
+    int img_h = bgr.rows;
+
+    ncnn::Mat in = ncnn::Mat::from_pixels_resize(bgr.data, ncnn::Mat::PIXEL_BGR, bgr.cols, bgr.rows, target_size, target_size);
+
+    const float mean_vals[3] = {127.5f, 127.5f, 127.5f};
+    const float norm_vals[3] = {0.007843f, 0.007843f, 0.007843f};
+    in.substract_mean_normalize(mean_vals, norm_vals);
+
+    ncnn::Extractor ex = yolov3.create_extractor();
+    ex.set_num_threads(4);
+
+    ex.input(&quot;data&quot;, in);
+
+    ncnn::Mat out;
+    ex.extract(&quot;detection_out&quot;, out);
+
+//     printf(&quot;%d %d %d\n&quot;, out.w, out.h, out.c);
+    objects.clear();
+    for (int i=0; i&lt;out.h; i++)
+    {
+        const float* values = out.row(i);
+
+        Object object;
+        object.label = values[0];
+        object.prob = values[1];
+        object.rect.x = values[2] * img_w;
+        object.rect.y = values[3] * img_h;
+        object.rect.width = values[4] * img_w - object.rect.x;
+        object.rect.height = values[5] * img_h - object.rect.y;
+
+        objects.push_back(object);
+    }
+
+    return 0;
+}
+
+static void draw_objects(const cv::Mat&amp; bgr, const std::vector&lt;Object&gt;&amp; objects)
+{
+    static const char* class_names[] = {&quot;background&quot;,
+        &quot;aeroplane&quot;, &quot;bicycle&quot;, &quot;bird&quot;, &quot;boat&quot;,
+        &quot;bottle&quot;, &quot;bus&quot;, &quot;car&quot;, &quot;cat&quot;, &quot;chair&quot;,
+        &quot;cow&quot;, &quot;diningtable&quot;, &quot;dog&quot;, &quot;horse&quot;,
+        &quot;motorbike&quot;, &quot;person&quot;, &quot;pottedplant&quot;,
+        &quot;sheep&quot;, &quot;sofa&quot;, &quot;train&quot;, &quot;tvmonitor&quot;};
+
+    cv::Mat image = bgr.clone();
+
+    for (size_t i = 0; i &lt; objects.size(); i++)
+    {
+        const Object&amp; obj = objects[i];
+
+        fprintf(stderr, &quot;%d = %.5f at %.2f %.2f %.2f x %.2f\n&quot;, obj.label, obj.prob,
+                obj.rect.x, obj.rect.y, obj.rect.width, obj.rect.height);
+
+        cv::rectangle(image, obj.rect, cv::Scalar(255, 0, 0));
+
+        char text[256];
+        sprintf(text, &quot;%s %.1f%%&quot;, class_names[obj.label], obj.prob * 100);
+
+        int baseLine = 0;
+        cv::Size label_size = cv::getTextSize(text, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &amp;baseLine);
+
+        int x = obj.rect.x;
+        int y = obj.rect.y - label_size.height - baseLine;
+        if (y &lt; 0)
+            y = 0;
+        if (x + label_size.width &gt; image.cols)
+            x = image.cols - label_size.width;
+
+        cv::rectangle(image, cv::Rect(cv::Point(x, y),
+                                    cv::Size(label_size.width, label_size.height + baseLine)),
+                    cv::Scalar(255, 255, 255), -1);
+
+        cv::putText(image, text, cv::Point(x, y + label_size.height),
+                    cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
+    }
+
+    cv::imshow(&quot;image&quot;, image);
+    // cv::waitKey(0);
+}
+
+void drawText(Mat &amp; image)
+{
+    putText(image, &quot;Hello OpenCV&quot;,
+            Point(20, 50),
+            FONT_HERSHEY_COMPLEX, 1, // font face and scale
+            Scalar(255, 255, 255), // white
+            1, LINE_AA); // line thickness and type
+}
+
+int main()
+{
+
+    Mat image;
+    VideoCapture capture;
+    capture.open(0);
+    if(capture.isOpened())
+    {
+        cout &lt;&lt; &quot;Capture is opened&quot; &lt;&lt; endl;
+        for(;;)
+        {
+            capture &gt;&gt; image;
+            if(image.empty())
+                break;
+            // drawText(image);
+
+            std::vector&lt;Object&gt; objects;
+            detect_yolov3(image, objects);
+
+            draw_objects(image, objects);
+
+            // imshow(&quot;Sample&quot;, image);
+            if(waitKey(10) &gt;= 0)
+                break;
+        }
+    }
+    else
+    {
+        cout &lt;&lt; &quot;No capture&quot; &lt;&lt; endl;
+        image = Mat::zeros(480, 640, CV_8UC1);
+        drawText(image);
+        imshow(&quot;Sample&quot;, image);
+        waitKey(0);
+    }
+
+    return 0;
+}</code></pre><h3 id="执行cmake和make"><a href="#执行cmake和make" class="headerlink" title="执行cmake和make:"></a>执行cmake和make:</h3><pre><code>mkdir build
+cd build
+cmake ..
+make</code></pre><h3 id="c-cpp-properties-json"><a href="#c-cpp-properties-json" class="headerlink" title="c_cpp_properties.json"></a>c_cpp_properties.json</h3><pre><code>{
+    &quot;configurations&quot;: [
+        {
+            &quot;name&quot;: &quot;Linux&quot;,
+            &quot;includePath&quot;: [
+                &quot;${workspaceFolder}/**&quot;,
+                &quot;/usr/local/include/opencv4&quot;,
+                &quot;/home/ray/ncnn/build/install/include/ncnn&quot;
+            ],
+            &quot;defines&quot;: [],
+            &quot;compilerPath&quot;: &quot;/usr/bin/gcc&quot;,
+            &quot;cStandard&quot;: &quot;c11&quot;,
+            &quot;cppStandard&quot;: &quot;c++17&quot;,
+            &quot;intelliSenseMode&quot;: &quot;clang-x64&quot;
+        }
+    ],
+    &quot;version&quot;: 4
+}</code></pre><h2 id="完整模板代码"><a href="#完整模板代码" class="headerlink" title="完整模板代码:"></a>完整模板代码:</h2><p><a href="https://github.com/radiumray/ncnnCVCompil" target="_blank" rel="noopener">https://github.com/radiumray/ncnnCVCompil</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/opencv/" rel="tag"># opencv</a>
+            
+              <a href="/tags/ncnn/" rel="tag"># ncnn</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/30/jetsonNanoEnvInstall/" rel="next" title="jetson nano 装机配置说明">
+                  <i class="fa fa-chevron-left"></i> jetson nano 装机配置说明
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/leon.gif"
+      alt="ray">
+  <p class="site-author-name" itemprop="name">ray</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NCNN环境搭建-Opencv与ncnn开发环境配置模板"><span class="nav-number">1.</span> <span class="nav-text">NCNN环境搭建,Opencv与ncnn开发环境配置模板</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NCNN环境搭建"><span class="nav-number">1.1.</span> <span class="nav-text">NCNN环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ncnn"><span class="nav-number">1.1.1.</span> <span class="nav-text">获取ncnn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译ncnn"><span class="nav-number">1.1.2.</span> <span class="nav-text">编译ncnn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装onnx-simplifier"><span class="nav-number">1.1.3.</span> <span class="nav-text">安装onnx-simplifier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.1.4.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Opencv与ncnn开发环境配置模板"><span class="nav-number">1.2.</span> <span class="nav-text">Opencv与ncnn开发环境配置模板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#opencv编译详细步骤："><span class="nav-number">1.2.1.</span> <span class="nav-text">opencv编译详细步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMakeLists-txt"><span class="nav-number">1.2.2.</span> <span class="nav-text">CMakeLists.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-cpp"><span class="nav-number">1.2.3.</span> <span class="nav-text">Main.cpp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行cmake和make"><span class="nav-number">1.2.4.</span> <span class="nav-text">执行cmake和make:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-cpp-properties-json"><span class="nav-number">1.2.5.</span> <span class="nav-text">c_cpp_properties.json</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整模板代码"><span class="nav-number">1.3.</span> <span class="nav-text">完整模板代码:</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ray</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>

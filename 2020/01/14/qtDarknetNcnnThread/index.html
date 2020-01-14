@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/zl.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/zl.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="集成了qt开发环境, 自定义NCNN(darknet53 yoloV3), 多线程开发模板 获取darknet2ncnnhttps://github.com/xiangweizeng/darknet2ncnn 按照md文件编译环境 安装qt开发环境下载qt: http://download.qt.io/archive/qt/5.13/5.13.2/qt-opensource-linux-x64-5">
+<meta name="keywords" content="ncnn,多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qt,NCNN,Darknet,多线程">
+<meta property="og:url" content="http://leirobot.com/2020/01/14/qtDarknetNcnnThread/index.html">
+<meta property="og:site_name" content="雷">
+<meta property="og:description" content="集成了qt开发环境, 自定义NCNN(darknet53 yoloV3), 多线程开发模板 获取darknet2ncnnhttps://github.com/xiangweizeng/darknet2ncnn 按照md文件编译环境 安装qt开发环境下载qt: http://download.qt.io/archive/qt/5.13/5.13.2/qt-opensource-linux-x64-5">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-14T02:41:47.738Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="qt,NCNN,Darknet,多线程">
+<meta name="twitter:description" content="集成了qt开发环境, 自定义NCNN(darknet53 yoloV3), 多线程开发模板 获取darknet2ncnnhttps://github.com/xiangweizeng/darknet2ncnn 按照md文件编译环境 安装qt开发环境下载qt: http://download.qt.io/archive/qt/5.13/5.13.2/qt-opensource-linux-x64-5">
+  <link rel="alternate" href="/atom.xml" title="雷" type="application/atom+xml">
+  <link rel="canonical" href="http://leirobot.com/2020/01/14/qtDarknetNcnnThread/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>qt,NCNN,Darknet,多线程 | 雷</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-right">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-sitemap">
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leirobot.com/2020/01/14/qtDarknetNcnnThread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ray">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/leon.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">qt,NCNN,Darknet,多线程
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-14 09:09:11 / 修改时间：10:41:47" itemprop="dateCreated datePublished" datetime="2020-01-14T09:09:11+08:00">2020-01-14</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ncnn/" itemprop="url" rel="index"><span itemprop="name">ncnn</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ncnn/qt/" itemprop="url" rel="index"><span itemprop="name">qt</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ncnn/qt/多线程/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>集成了qt开发环境, 自定义NCNN(darknet53 yoloV3), 多线程开发模板</p>
+<h1 id="获取darknet2ncnn"><a href="#获取darknet2ncnn" class="headerlink" title="获取darknet2ncnn"></a>获取darknet2ncnn</h1><p><a href="https://github.com/xiangweizeng/darknet2ncnn" target="_blank" rel="noopener">https://github.com/xiangweizeng/darknet2ncnn</a></p>
+<p>按照md文件编译环境</p>
+<h1 id="安装qt开发环境"><a href="#安装qt开发环境" class="headerlink" title="安装qt开发环境"></a>安装qt开发环境</h1><p>下载qt: <a href="http://download.qt.io/archive/qt/5.13/5.13.2/qt-opensource-linux-x64-5.13.2.run" target="_blank" rel="noopener">http://download.qt.io/archive/qt/5.13/5.13.2/qt-opensource-linux-x64-5.13.2.run</a></p>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo chmod 777 ./qt-opensource-linux-x64-5.13.2.run</span><br><span class="line">./qt-opensource-linux-x64-5.13.2.run</span><br></pre></td></tr></table></figure>
+
+<p>新建工程：qt widgets application</p>
+<h1 id="配置qt里的-pro文件"><a href="#配置qt里的-pro文件" class="headerlink" title="配置qt里的.pro文件"></a>配置qt里的.pro文件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">QT += gui</span><br><span class="line">QT += core</span><br><span class="line">QT += widgets</span><br><span class="line"></span><br><span class="line">CONFIG += c++11</span><br><span class="line">CONFIG -= app_bundle</span><br><span class="line"></span><br><span class="line"><span class="comment"># The following define makes your compiler emit warnings if you use</span></span><br><span class="line"><span class="comment"># any Qt feature that has been marked deprecated (the exact warnings</span></span><br><span class="line"><span class="comment"># depend on your compiler). Please consult the documentation of the</span></span><br><span class="line"><span class="comment"># deprecated API in order to know how to port your code away from it.</span></span><br><span class="line">DEFINES += QT_DEPRECATED_WARNINGS</span><br><span class="line"></span><br><span class="line"><span class="comment"># You can also make your code fail to compile if it uses deprecated APIs.</span></span><br><span class="line"><span class="comment"># In order to do so, uncomment the following line.</span></span><br><span class="line"><span class="comment"># You can also select to disable deprecated APIs only up to a certain version of Qt.</span></span><br><span class="line"><span class="comment">#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置源码cpp文件</span></span><br><span class="line">SOURCES += \</span><br><span class="line">        main.cpp \</span><br><span class="line">        mainwindow.cpp \</span><br><span class="line">        mythread.cpp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置自定义变量, 防止配置文件过长</span></span><br><span class="line">usrLocInc = /usr/<span class="built_in">local</span>/include</span><br><span class="line">usrLocLib = /usr/<span class="built_in">local</span>/lib</span><br><span class="line">NCNN_DIR = /home/ray/ncnn</span><br><span class="line">DARKNET_DIR = /home/ray/darknet2ncnn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置所用的库头文件</span></span><br><span class="line">INCLUDEPATH += $<span class="variable">$&#123;usrLocInc&#125;</span> \</span><br><span class="line">    $<span class="variable">$&#123;usrLocInc&#125;</span>/opencv4 \</span><br><span class="line">    $<span class="variable">$&#123;NCNN_DIR&#125;</span>/build/install/include/ncnn \</span><br><span class="line">    $<span class="variable">$&#123;DARKNET_DIR&#125;</span>/include \</span><br><span class="line">    $<span class="variable">$&#123;NCNN_DIR&#125;</span>/src</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置所用库so文件</span></span><br><span class="line">LIBS += $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_highgui.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_core.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_imgproc.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_imgcodecs.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_video.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_videoio.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_calib3d.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_features2d.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_flann.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_objdetect.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_photo.so \</span><br><span class="line">    $<span class="variable">$&#123;usrLocLib&#125;</span>/libopencv_stitching.so \</span><br><span class="line">    $<span class="variable">$&#123;NCNN_DIR&#125;</span>/build/install/lib/libncnn.a \</span><br><span class="line">    $<span class="variable">$&#123;DARKNET_DIR&#125;</span>/libdarknet2ncnn.a</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 openmp</span></span><br><span class="line">QMAKE_CXXFLAGS += -fopenmp</span><br><span class="line">LIBS += -fopenmp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Default rules for deployment.</span></span><br><span class="line">qnx: target.path = /tmp/$<span class="variable">$&#123;TARGET&#125;</span>/bin</span><br><span class="line"><span class="keyword">else</span>: unix:!android: target.path = /opt/$<span class="variable">$&#123;TARGET&#125;</span>/bin</span><br><span class="line">!isEmpty(target.path): INSTALLS += target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置ui文件</span></span><br><span class="line">FORMS += \</span><br><span class="line">    mainwindow.ui</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置源码头文件</span></span><br><span class="line">HEADERS += \</span><br><span class="line">    mainwindow.h \</span><br><span class="line">    mythread.h \</span><br><span class="line">    portablesleep.h</span><br></pre></td></tr></table></figure>
+
+<h1 id="完整模板代码"><a href="#完整模板代码" class="headerlink" title="完整模板代码:"></a>完整模板代码:</h1><p><a href="https://github.com/radiumray/qtDarkNetNcnnThread" target="_blank" rel="noopener">https://github.com/radiumray/qtDarkNetNcnnThread</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/ncnn/" rel="tag"># ncnn</a>
+            
+              <a href="/tags/多线程/" rel="tag"># 多线程</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/01/08/ncnnCvCompil/" rel="next" title="NCNN环境搭建,Opencv与ncnn开发环境配置模板">
+                  <i class="fa fa-chevron-left"></i> NCNN环境搭建,Opencv与ncnn开发环境配置模板
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/leon.gif"
+      alt="ray">
+  <p class="site-author-name" itemprop="name">ray</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#获取darknet2ncnn"><span class="nav-number">1.</span> <span class="nav-text">获取darknet2ncnn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装qt开发环境"><span class="nav-number">2.</span> <span class="nav-text">安装qt开发环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置qt里的-pro文件"><span class="nav-number">3.</span> <span class="nav-text">配置qt里的.pro文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整模板代码"><span class="nav-number">4.</span> <span class="nav-text">完整模板代码:</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ray</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>
